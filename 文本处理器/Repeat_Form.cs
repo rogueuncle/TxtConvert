@@ -13,9 +13,26 @@ namespace 文本处理器
     public partial class Repeat_Form : Form
     {
         Repeat_Col_Form Rdata = new Repeat_Col_Form();
-        public Repeat_Form()
+        public enum Window_Type
+        {
+            按列去重复,删除列
+        }
+        public Repeat_Form(Window_Type window_Type)
         {
             InitializeComponent();
+            switch (window_Type)
+            {
+                case Window_Type.按列去重复:
+                    checkBox1.Visible = false;
+                    textBox4.Visible = false;
+                    this.Height = 185;
+                    break;
+                case Window_Type.删除列:
+                    this.Height = 241;
+                    break;
+                default:
+                    break;
+            }
         }
         /// <summary>
         /// 获取界面设置的内容
@@ -46,12 +63,10 @@ namespace 文本处理器
         private void button2_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-
+            folderBrowserDialog.ShowNewFolderButton = true;
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 textBox2.Text = folderBrowserDialog.SelectedPath;
-                //var _ = (Repeat_Col_Form)Rdata;
-                //_.Save_Path = folderBrowserDialog.SelectedPath;
                 Rdata.Save_Path = folderBrowserDialog.SelectedPath;
             }
         }
@@ -73,7 +88,16 @@ namespace 文本处理器
                 MessageBox.Show("分隔符未填写!");
                 return;
             }
+
+            if (checkBox1.Checked && textBox4.Lines.Length == 0)
+            {
+                MessageBox.Show("关键词未填写!");
+                return;
+            }
             Rdata.Col_Num = (int)numericUpDown1.Value;
+            Rdata.Splite_Txt = textBox3.Text;
+            Rdata._Need_Key_Words = checkBox1.Checked;
+            Rdata.Key_Words = textBox4.Lines;
 
             this.DialogResult = DialogResult.OK;
             this.Close();

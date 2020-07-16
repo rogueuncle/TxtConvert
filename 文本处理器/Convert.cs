@@ -6,12 +6,19 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace 文本处理器
 {
     class Convert
     {
-        public static bool Clean_Repeat_Rows(string[] Input_FileName,string Save_FilePath)
+        /// <summary>
+        /// 对文件按行去重复
+        /// </summary>
+        /// <param name="Input_FileName">要被处理对文件列表</param>
+        /// <param name="Save_FilePath">保存文件夹地址</param>
+        /// <returns></returns>
+        public static bool Repeat_Clean_Rows(string[] Input_FileName,string Save_FilePath)
         {
             if (Input_FileName.Length == 0) return false;
             HashSet<string> data = new HashSet<string>();
@@ -46,7 +53,16 @@ namespace 文本处理器
             return true;
         }
 
-        public static bool Clean_Repeat_Col(string[] Input_FileName, string Save_FilePath,int Col_Number,string Splite_Text)
+        /// <summary>
+        /// 对文件按列去重复
+        /// </summary>
+        /// <param name="Input_FileName">要被处理对文件列表</param>
+        /// <param name="Save_FilePath">保存文件夹地址</param>
+        /// <param name="Col_Number">被处理的列索引</param>
+        /// <param name="Splite_Text">分割文本</param>
+        /// <returns></returns>
+        public static bool Repeat_Clean_Col(string[] Input_FileName, string Save_FilePath, int Col_Number,
+                                            string Splite_Text)
         {
             if (Input_FileName.Length == 0) return false;
 
@@ -91,6 +107,29 @@ namespace 文本处理器
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// 去除文本的指定列
+        /// </summary>
+        /// <param name="Input_FileName">要被处理对文件列表</param>
+        /// <param name="Save_FilePath">保存文件夹地址</param>
+        /// <param name="Col_Number">被处理的列索引</param>
+        /// <param name="Splite_Text">分割文本</param>
+        /// <returns></returns>
+        public static bool Screen_Clean_Col(string[] Input_FileName, string Save_FilePath,int Col_Number,string Splite_Text)
+        {
+            if (Input_FileName.Length == 0) return false;
+            foreach (var filename in Input_FileName)
+            {
+                StreamReader streamReader = new StreamReader(filename);
+                while (! streamReader.EndOfStream)
+                {
+                    string text = streamReader.ReadLine();
+                    text.IndexOf()
+                }
+            }
+
         }
     }
 }

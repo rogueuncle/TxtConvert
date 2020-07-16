@@ -40,6 +40,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,7 +142,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(274, 99);
+            this.button3.Location = new System.Drawing.Point(275, 99);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(58, 35);
             this.button3.TabIndex = 10;
@@ -150,7 +152,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(200, 99);
+            this.button4.Location = new System.Drawing.Point(210, 99);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(58, 35);
             this.button4.TabIndex = 11;
@@ -158,11 +160,33 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(71, 147);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox4.Size = new System.Drawing.Size(261, 50);
+            this.textBox4.TabIndex = 13;
+            this.textBox4.WordWrap = false;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Location = new System.Drawing.Point(11, 164);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(60, 18);
+            this.checkBox1.TabIndex = 14;
+            this.checkBox1.Text = "关键字";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Repeat_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 150);
+            this.ClientSize = new System.Drawing.Size(344, 203);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -197,5 +221,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
