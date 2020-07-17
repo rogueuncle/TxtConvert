@@ -45,8 +45,7 @@ namespace 文本处理器
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = true;
+            OpenFileDialog openFileDialog = new OpenFileDialog{Multiselect = true};
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -62,8 +61,10 @@ namespace 文本处理器
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-            folderBrowserDialog.ShowNewFolderButton = true;
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = true
+            };
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 textBox2.Text = folderBrowserDialog.SelectedPath;

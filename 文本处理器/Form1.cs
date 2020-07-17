@@ -23,7 +23,7 @@ namespace 文本处理器
             {
                 if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    Convert.Repeat_Clean_Rows(openFileDialog1.FileNames,folderBrowserDialog1.SelectedPath);
+                    ConvertText.Repeat_Clean_Rows(openFileDialog1.FileNames,folderBrowserDialog1.SelectedPath);
                 }
             }
         }
@@ -36,7 +36,7 @@ namespace 文本处理器
             {
                 Repeat_Col_Form repeat_Col_Form = repeat_Form.Get_Data();
                 repeat_Form.Dispose();
-                Convert.Repeat_Clean_Col(repeat_Col_Form.Input_Files, repeat_Col_Form.Save_Path,
+                ConvertText.Repeat_Clean_Col(repeat_Col_Form.Input_Files, repeat_Col_Form.Save_Path,
                     repeat_Col_Form.Col_Num, repeat_Col_Form.Splite_Txt);
             }
             else
@@ -51,15 +51,31 @@ namespace 文本处理器
             Repeat_Form repeat_Form = new Repeat_Form(Repeat_Form.Window_Type.删除列);
             if (repeat_Form.ShowDialog() == DialogResult.OK)
             {
-                Repeat_Col_Form repeat_Col_Form = repeat_Form.Get_Data();
+                Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
                 repeat_Form.Dispose();
-                Convert.Repeat_Clean_Col(repeat_Col_Form.Input_Files, repeat_Col_Form.Save_Path,
-                    repeat_Col_Form.Col_Num, repeat_Col_Form.Splite_Txt);
+                if (repeat_Col_Form_Data._Need_Key_Words)
+                {
+
+                }
+                else
+                {
+                    ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
+                    repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt);
+                }
+                
             }
             else
             {
                 repeat_Form.Dispose();
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+            ConvertText._Clean_Col_Val("1-2-132-4",2,"-","3");
+
+
         }
     }
 

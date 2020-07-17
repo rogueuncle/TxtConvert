@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace 文本处理器
 {
-    class Convert
+    class ConvertText
     {
         /// <summary>
         /// 对文件按行去重复
@@ -110,6 +112,67 @@ namespace 文本处理器
         }
 
         /// <summary>
+        /// 删除指定列，返回剩余文本
+        /// </summary>
+        /// <param name="Text">要被删除的文本</param>
+        /// <param name="Col">指定列</param>
+        /// <param name="Splite_Text">用来分割的文本</param>
+        /// <returns></returns>
+        private static string _Clean_Col(string Text,int Col,string Splite_Text)
+        {
+            int index = -1;
+            int _addr_s = -1;
+            while (index < Col-1)
+            {
+                _addr_s = Text.IndexOf(Splite_Text, _addr_s + 1);
+                if (_addr_s == -1)
+                {
+                    return null;
+                }
+                index++;
+            }
+            int _addr_e = Text.IndexOf(Splite_Text, _addr_s + 1);
+            if (_addr_e == -1) return Text.Substring(0, _addr_s);
+            
+            return Text.Substring(0, _addr_s) + Text.Substring(_addr_e) + "\r\n";
+        }
+
+        public static string _Clean_Col_Val(string Text, int Col, string Splite_Text,string Find_Text)
+        {
+            int index = -1;
+            int _addr_s = -1;
+            string subtext = "";
+            while (index < Col - 1)
+            {
+                _addr_s = Text.IndexOf(Splite_Text, _addr_s + 1);
+                if (_addr_s == -1)
+                {
+                    return null;
+                }
+                index++;
+            }
+            int _addr_e = Text.IndexOf(Splite_Text, _addr_s + 1);
+            if (_addr_e == -1)
+            {
+                _addr_s = Text.LastIndexOf(Splite_Text, _addr_e);
+                subtext = Text.Substring(_addr_s, _addr_e - _addr_s);
+            }
+            else
+            {
+                _addr_s += Splite_Text.Length;
+                subtext = Text.Substring(_addr_s, _addr_e - _addr_s);
+            }
+
+            if (subtext.IndexOf(Find_Text) != -1)
+            {
+
+            }
+
+            return Text.Substring(0, _addr_s) + Text.Substring(_addr_e) + "\r\n";
+        }
+
+
+        /// <summary>
         /// 去除文本的指定列
         /// </summary>
         /// <param name="Input_FileName">要被处理对文件列表</param>
@@ -123,13 +186,44 @@ namespace 文本处理器
             foreach (var filename in Input_FileName)
             {
                 StreamReader streamReader = new StreamReader(filename);
+                FileInfo fileInfo = new FileInfo(filename);
+                
+                
+                StreamWriter streamWriter = new StreamWriter(Path.Combine(Save_FilePath, fileInfo.Name),false, Encoding.UTF8, 1024 * 1024);
                 while (! streamReader.EndOfStream)
                 {
                     string text = streamReader.ReadLine();
-                    text.IndexOf()
+                    streamWriter.Write(_Clean_Col(text, Col_Number, Splite_Text));
                 }
+                streamWriter.Close();
+                streamReader.Close();
+                streamReader.Dispose();
+                streamWriter.Dispose();
             }
+            return true;
+        }
+    
+        public static bool Screen_Clean_Col(string[] Input_FileName,string Save_FilePath,int Col_Number,string Splite_Text,string Replace_Text)
+        {
+            if (Input_FileName.Length == 0) return false;
+            foreach (var filename in Input_FileName)
+            {
+                StreamReader streamReader = new StreamReader(filename);
+                FileInfo fileInfo = new FileInfo(filename);
 
+
+                StreamWriter streamWriter = new StreamWriter(Path.Combine(Save_FilePath, fileInfo.Name), false, Encoding.UTF8, 1024 * 1024);
+                while (!streamReader.EndOfStream)
+                {
+                    string text = streamReader.ReadLine();
+                    streamWriter.Write(_Clean_Col(text, Col_Number, Splite_Text));
+                }
+                streamWriter.Close();
+                streamReader.Close();
+                streamReader.Dispose();
+                streamWriter.Dispose();
+            }
+            return true;
         }
     }
 }
