@@ -36,13 +36,16 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -101,7 +104,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(71, 87);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(94, 21);
+            this.textBox3.Size = new System.Drawing.Size(72, 21);
             this.textBox3.TabIndex = 6;
             this.textBox3.Text = "----";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -116,23 +119,13 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(94, 21);
+            this.numericUpDown1.Size = new System.Drawing.Size(72, 21);
             this.numericUpDown1.TabIndex = 7;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(274, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(59, 28);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "选择";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(274, 47);
+            this.button2.Location = new System.Drawing.Point(313, 73);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(59, 28);
             this.button2.TabIndex = 9;
@@ -142,9 +135,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(275, 99);
+            this.button3.Location = new System.Drawing.Point(274, 113);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(58, 35);
+            this.button3.Size = new System.Drawing.Size(58, 28);
             this.button3.TabIndex = 10;
             this.button3.Text = "确定";
             this.button3.UseVisualStyleBackColor = true;
@@ -152,9 +145,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(210, 99);
+            this.button4.Location = new System.Drawing.Point(274, 81);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(58, 35);
+            this.button4.Size = new System.Drawing.Size(58, 28);
             this.button4.TabIndex = 11;
             this.button4.Text = "取消";
             this.button4.UseVisualStyleBackColor = true;
@@ -165,6 +158,7 @@
             this.textBox4.Location = new System.Drawing.Point(71, 147);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
             this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox4.Size = new System.Drawing.Size(261, 50);
             this.textBox4.TabIndex = 13;
@@ -179,12 +173,48 @@
             this.checkBox1.TabIndex = 14;
             this.checkBox1.Text = "关键字";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(196, 122);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(72, 21);
+            this.numericUpDown2.TabIndex = 16;
+            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(137, 124);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "选择列数";
+            // 
+            // button1
+            // 
+            
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.Location = new System.Drawing.Point(274, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(58, 59);
+            this.button1.TabIndex = 8;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Repeat_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 203);
+            this.ClientSize = new System.Drawing.Size(368, 203);
+            this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.button4);
@@ -202,6 +232,7 @@
             this.Name = "Repeat_Form";
             this.Text = "参数填写";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,5 +254,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label5;
     }
 }

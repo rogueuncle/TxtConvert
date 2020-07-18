@@ -55,7 +55,8 @@ namespace 文本处理器
                 repeat_Form.Dispose();
                 if (repeat_Col_Form_Data._Need_Key_Words)
                 {
-
+                    ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
+                    repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt,repeat_Col_Form_Data.Key_Words);
                 }
                 else
                 {
@@ -73,9 +74,20 @@ namespace 文本处理器
         private void button5_Click(object sender, EventArgs e)
         {
 
-            ConvertText._Clean_Col_Val("1-2-132-4",2,"-","3");
+            ConvertText._Clean_Col_Val("1-2-132",2,"-",new string[1]{ "1"});
 
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Repeat_Form repeat_Form = new Repeat_Form(Repeat_Form.Window_Type.删除行);
+            if (repeat_Form.ShowDialog() == DialogResult.OK)
+            {
+                var repeat_Form_Data = repeat_Form.Get_Data();
+                repeat_Form.Dispose();
+                ConvertText.Screen_Clean_Row(repeat_Form_Data.Input_Files, repeat_Form_Data.Save_Path, repeat_Form_Data.Key_Words);
+            }
         }
     }
 

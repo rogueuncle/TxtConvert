@@ -37,6 +37,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -80,11 +81,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button6);
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Location = new System.Drawing.Point(107, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(90, 115);
+            this.groupBox2.Size = new System.Drawing.Size(169, 115);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "筛选";
@@ -97,6 +99,7 @@
             this.button4.TabIndex = 4;
             this.button4.Text = "删除行";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -117,6 +120,15 @@
             this.button5.Text = "button5";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(86, 20);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(74, 38);
+            this.button6.TabIndex = 5;
+            this.button6.Text = "指定长度";
+            this.button6.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -145,6 +157,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }
 

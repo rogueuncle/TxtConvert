@@ -15,7 +15,7 @@ namespace 文本处理器
         Repeat_Col_Form Rdata = new Repeat_Col_Form();
         public enum Window_Type
         {
-            按列去重复,删除列
+            按列去重复,删除列,删除行
         }
         public Repeat_Form(Window_Type window_Type)
         {
@@ -29,6 +29,11 @@ namespace 文本处理器
                     break;
                 case Window_Type.删除列:
                     this.Height = 241;
+                    break;
+                case Window_Type.删除行:
+                    this.Height = 241;
+                    textBox3.Enabled = false;
+                    numericUpDown1.Enabled = false;
                     break;
                 default:
                     break;
@@ -113,6 +118,18 @@ namespace 文本处理器
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                textBox4.ReadOnly = false;
+            }
+            else
+            {
+                textBox4.ReadOnly = true;
+            }
         }
     }
 }
