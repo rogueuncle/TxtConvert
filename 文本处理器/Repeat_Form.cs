@@ -15,7 +15,7 @@ namespace 文本处理器
         Repeat_Col_Form Rdata = new Repeat_Col_Form();
         public enum Window_Type
         {
-            按列去重复,删除列,删除行
+            按列去重复,删除列,删除行,指定长度
         }
         public Repeat_Form(Window_Type window_Type)
         {
@@ -23,17 +23,31 @@ namespace 文本处理器
             switch (window_Type)
             {
                 case Window_Type.按列去重复:
-                    checkBox1.Visible = false;
-                    textBox4.Visible = false;
+                    label3.Visible = true;
+                    label4.Visible = true;
+                    textBox3.Visible = true;
+                    checkBox1.Visible = true;
+                    numericUpDown1.Visible = true;
                     this.Height = 185;
                     break;
                 case Window_Type.删除列:
+                    label3.Visible = true;
+                    label4.Visible = true;
+                    textBox3.Visible = true;
+                    checkBox1.Visible = true;
+                    numericUpDown1.Visible = true;
+                    checkBox1.Visible = true;
+                    textBox4.Visible = true;
                     this.Height = 241;
                     break;
                 case Window_Type.删除行:
-                    this.Height = 241;
-                    textBox3.Enabled = false;
-                    numericUpDown1.Enabled = false;
+                    textBox4.Visible = true;
+                    checkBox1.Visible = true;
+                    textBox4.Location = new Point(71, 87);
+                    checkBox1.Location = new Point(11, 105);
+                    checkBox1.Checked = true;
+                    this.Height = 184;
+                    
                     break;
                 default:
                     break;
