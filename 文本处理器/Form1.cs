@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,21 +18,14 @@ namespace 文本处理器
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    ConvertText.Repeat_Clean_Rows(openFileDialog1.FileNames,folderBrowserDialog1.SelectedPath);
-                }
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
             
-            Repeat_Form repeat_Form = new Repeat_Form(Repeat_Form.Window_Type.按列去重复);
+            ConvertText._Clean_Col_Val("1-2-132",2,"-",new string[1]{ "1"});
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Repeat_Form repeat_Form = new Repeat_Form(Repeat_Form.Window_Type.去重复);
             if (repeat_Form.ShowDialog() == DialogResult.OK)
             {
                 Repeat_Col_Form repeat_Col_Form = repeat_Form.Get_Data();
@@ -39,16 +33,13 @@ namespace 文本处理器
                 ConvertText.Repeat_Clean_Col(repeat_Col_Form.Input_Files, repeat_Col_Form.Save_Path,
                     repeat_Col_Form.Col_Num, repeat_Col_Form.Splite_Txt);
             }
-            else
-            {
-                repeat_Form.Dispose();
-            }
+            repeat_Form.Dispose();
             
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button8_Click(object sender, EventArgs e)
         {
-            Repeat_Form repeat_Form = new Repeat_Form(Repeat_Form.Window_Type.删除列);
+            Repeat_Form repeat_Form = new Repeat_Form(Repeat_Form.Window_Type.筛选内容);
             if (repeat_Form.ShowDialog() == DialogResult.OK)
             {
                 Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
@@ -56,38 +47,23 @@ namespace 文本处理器
                 if (repeat_Col_Form_Data._Need_Key_Words)
                 {
                     ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
-                    repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt,repeat_Col_Form_Data.Key_Words);
+                    repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt, repeat_Col_Form_Data.Key_Words);
                 }
                 else
                 {
                     ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
                     repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt);
                 }
-                
+
             }
-            else
-            {
-                repeat_Form.Dispose();
-            }
+            repeat_Form.Dispose();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
 
-            ConvertText._Clean_Col_Val("1-2-132",2,"-",new string[1]{ "1"});
-
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Repeat_Form repeat_Form = new Repeat_Form(Repeat_Form.Window_Type.删除行);
-            if (repeat_Form.ShowDialog() == DialogResult.OK)
-            {
-                var repeat_Form_Data = repeat_Form.Get_Data();
-                repeat_Form.Dispose();
-                ConvertText.Screen_Clean_Row(repeat_Form_Data.Input_Files, repeat_Form_Data.Save_Path, repeat_Form_Data.Key_Words);
-            }
+            
+            
         }
     }
 

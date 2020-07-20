@@ -152,6 +152,8 @@ namespace 文本处理器
         {
             int index = -1;
             int _addr_s = -1;
+            
+            
             string coltext;
             while (index < Col - 1)
             {
