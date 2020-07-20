@@ -13,6 +13,7 @@ namespace 文本处理器
 {
     public partial class Form1 : Form
     {
+        readonly Option_Form repeat_Form = new Option_Form();
         public Form1()
         {
             InitializeComponent();
@@ -23,27 +24,33 @@ namespace 文本处理器
             
             ConvertText._Clean_Col_Val("1-2-132",2,"-",new string[1]{ "1"});
         }
-        private void button7_Click(object sender, EventArgs e)
+
+        private void Repeat_Btn_Click(object sender, EventArgs e)  //去重复
         {
-            Repeat_Form repeat_Form = new Repeat_Form(Repeat_Form.Window_Type.去重复);
+            repeat_Form.init(Option_Form.Window_Type.去重复);
+            
             if (repeat_Form.ShowDialog() == DialogResult.OK)
             {
                 Repeat_Col_Form repeat_Col_Form = repeat_Form.Get_Data();
-                repeat_Form.Dispose();
-                ConvertText.Repeat_Clean_Col(repeat_Col_Form.Input_Files, repeat_Col_Form.Save_Path,
+
+                if (repeat_Col_Form.Col_Num == -1)  //如果列数是-1，按行去重复
+                {
+                    ConvertText.Repeat_Clean_Rows(repeat_Col_Form.Input_Files, repeat_Col_Form.Save_Path);
+                }
+                else
+                {
+                    ConvertText.Repeat_Clean_Col(repeat_Col_Form.Input_Files, repeat_Col_Form.Save_Path,
                     repeat_Col_Form.Col_Num, repeat_Col_Form.Splite_Txt);
+                }
             }
-            repeat_Form.Dispose();
-            
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Repeat_Form repeat_Form = new Repeat_Form(Repeat_Form.Window_Type.筛选内容);
+            repeat_Form.init(Option_Form.Window_Type.删除内容);
             if (repeat_Form.ShowDialog() == DialogResult.OK)
             {
                 Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
-                repeat_Form.Dispose();
                 if (repeat_Col_Form_Data._Need_Key_Words)
                 {
                     ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
@@ -56,7 +63,7 @@ namespace 文本处理器
                 }
 
             }
-            repeat_Form.Dispose();
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -64,6 +71,11 @@ namespace 文本处理器
 
             
             
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

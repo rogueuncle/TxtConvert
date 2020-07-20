@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.button5 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.repeat_btn = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -44,15 +44,15 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button7
+            // repeat_btn
             // 
-            this.button7.Location = new System.Drawing.Point(12, 12);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(74, 38);
-            this.button7.TabIndex = 3;
-            this.button7.Text = "去重复";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.repeat_btn.Location = new System.Drawing.Point(12, 12);
+            this.repeat_btn.Name = "repeat_btn";
+            this.repeat_btn.Size = new System.Drawing.Size(74, 38);
+            this.repeat_btn.TabIndex = 3;
+            this.repeat_btn.Text = "去重复";
+            this.repeat_btn.UseVisualStyleBackColor = true;
+            this.repeat_btn.Click += new System.EventHandler(this.Repeat_Btn_Click);
             // 
             // button8
             // 
@@ -60,7 +60,7 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(74, 38);
             this.button8.TabIndex = 4;
-            this.button8.Text = "筛选内容";
+            this.button8.Text = "删除内容";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
@@ -81,18 +81,19 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.repeat_btn);
             this.Controls.Add(this.button5);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button repeat_btn;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button1;
     }

@@ -10,36 +10,56 @@ using System.Windows.Forms;
 
 namespace 文本处理器
 {
-    public partial class Repeat_Form : Form
+    public partial class Option_Form : Form
     {
         Repeat_Col_Form Rdata = new Repeat_Col_Form();
         public enum Window_Type
         {
-            去重复,筛选内容
+            去重复,删除内容
         }
-        public Repeat_Form(Window_Type window_Type)
+        public Option_Form()
         {
             InitializeComponent();
+            
+        }
+
+        public bool init(Window_Type window_Type)
+        {
+            split_Text_Lab.Visible = false;
+            col_Num_Lab.Visible = false;
+            Len_Num_Lab.Visible = false;
+
+            split_Text_TB.Visible = false;
+            keyWords_TB.Visible = false;
+
+            keyWord_Chebox.Visible = false;
+
+
+            col_Num_Numer.Visible = false;
+            len_Num_Numer.Visible = false;
+
+
             switch (window_Type)
             {
                 case Window_Type.去重复:
-                    label3.Visible = true;
-                    label4.Visible = true;
-                    textBox3.Visible = true;
-                    checkBox1.Visible = true;
-                    numericUpDown1.Visible = true;
-                    this.Height = 185;
-                    break;
-                case Window_Type.筛选内容:
-                    label3.Visible = true;
-                    label4.Visible = true;
-                    textBox3.Visible = true;
-                    checkBox1.Visible = true;
-                    numericUpDown1.Visible = true;
-                    checkBox1.Visible = true;
-                    textBox4.Visible = true;
+                    split_Text_Lab.Visible = true;
+                    col_Num_Lab.Visible = true;
+                    split_Text_TB.Visible = true;
+                    
+                    col_Num_Numer.Visible = true;
+                    this.Height = 188;
+                    return true;
+                    
+                case Window_Type.删除内容:
+                    split_Text_Lab.Visible = true;
+                    col_Num_Lab.Visible = true;
+                    split_Text_TB.Visible = true;
+                    keyWord_Chebox.Visible = true;
+                    col_Num_Numer.Visible = true;
+                    keyWord_Chebox.Visible = true;
+                    keyWords_TB.Visible = true;
                     this.Height = 241;
-                    break;
+                    return true;
                 //case Window_Type.删除行:
                 //    textBox4.Visible = true;
                 //    checkBox1.Visible = true;
@@ -47,12 +67,13 @@ namespace 文本处理器
                 //    checkBox1.Location = new Point(11, 105);
                 //    checkBox1.Checked = true;
                 //    this.Height = 184;
-                    
+
                 //    break;
                 default:
-                    break;
+                    return false;
             }
         }
+
         /// <summary>
         /// 获取界面设置的内容
         /// </summary>
@@ -64,60 +85,57 @@ namespace 文本处理器
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog{Multiselect = true};
+            
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var _text = "";
-                foreach (var filename in openFileDialog.SafeFileNames)
+                foreach (var filename in openFileDialog1.SafeFileNames)
                 {
                     _text += filename + ",";
                 }
-                textBox1.Text = _text;
-                Rdata.Input_Files = openFileDialog.FileNames;
+                input_Files_TB.Text = _text;
+                Rdata.Input_Files = openFileDialog1.FileNames;
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
+            
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                ShowNewFolderButton = true
-            };
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                textBox2.Text = folderBrowserDialog.SelectedPath;
-                Rdata.Save_Path = folderBrowserDialog.SelectedPath;
+                save_File_TB.Text = folderBrowserDialog1.SelectedPath;
+                Rdata.Save_Path = folderBrowserDialog1.SelectedPath;
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "")
+            if (input_Files_TB.Text == "")
             {
                 MessageBox.Show("读取文件地址未填写!");
                 return;
             }
-            if (textBox2.Text == "")
+            if (save_File_TB.Text == "")
             {
                 MessageBox.Show("保存文件地址未填写!");
                 return;
             }
-            if (textBox3.Text == "")
+            if (split_Text_TB.Text == "")
             {
                 MessageBox.Show("分隔符未填写!");
                 return;
             }
 
-            if (checkBox1.Checked && textBox4.Lines.Length == 0)
+            if (keyWord_Chebox.Checked && keyWords_TB.Lines.Length == 0)
             {
                 MessageBox.Show("关键词未填写!");
                 return;
             }
-            Rdata.Col_Num = (int)numericUpDown1.Value;
-            Rdata.Splite_Txt = textBox3.Text;
-            Rdata._Need_Key_Words = checkBox1.Checked;
-            Rdata.Key_Words = textBox4.Lines;
+            Rdata.Col_Num = (int)col_Num_Numer.Value;
+            Rdata.Splite_Txt = split_Text_TB.Text;
+            Rdata._Need_Key_Words = keyWord_Chebox.Checked;
+            Rdata.Key_Words = keyWords_TB.Lines;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -125,7 +143,7 @@ namespace 文本处理器
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            Rdata.Splite_Txt = textBox3.Text;
+            Rdata.Splite_Txt = split_Text_TB.Text;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -136,14 +154,16 @@ namespace 文本处理器
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            if (keyWord_Chebox.Checked)
             {
-                textBox4.ReadOnly = false;
+                keyWords_TB.ReadOnly = false;
             }
             else
             {
-                textBox4.ReadOnly = true;
+                keyWords_TB.ReadOnly = true;
             }
         }
+
+        
     }
 }
