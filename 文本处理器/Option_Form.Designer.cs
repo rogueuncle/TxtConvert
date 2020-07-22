@@ -41,7 +41,7 @@
             this.keyWords_TB = new System.Windows.Forms.TextBox();
             this.keyWord_Chebox = new System.Windows.Forms.CheckBox();
             this.len_Num_Numer = new System.Windows.Forms.NumericUpDown();
-            this.Len_Num_Lab = new System.Windows.Forms.Label();
+            this.len_Num_Lab = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -140,6 +140,7 @@
             0,
             -2147483648});
             this.col_Num_Numer.Visible = false;
+            this.col_Num_Numer.ValueChanged += new System.EventHandler(this.col_Num_Numer_ValueChanged);
             // 
             // button3
             // 
@@ -209,15 +210,15 @@
             -2147483648});
             this.len_Num_Numer.Visible = false;
             // 
-            // Len_Num_Lab
+            // len_Num_Lab
             // 
-            this.Len_Num_Lab.AutoSize = true;
-            this.Len_Num_Lab.Location = new System.Drawing.Point(168, 125);
-            this.Len_Num_Lab.Name = "Len_Num_Lab";
-            this.Len_Num_Lab.Size = new System.Drawing.Size(53, 12);
-            this.Len_Num_Lab.TabIndex = 15;
-            this.Len_Num_Lab.Text = "指定长度";
-            this.Len_Num_Lab.Visible = false;
+            this.len_Num_Lab.AutoSize = true;
+            this.len_Num_Lab.Location = new System.Drawing.Point(168, 125);
+            this.len_Num_Lab.Name = "len_Num_Lab";
+            this.len_Num_Lab.Size = new System.Drawing.Size(53, 12);
+            this.len_Num_Lab.TabIndex = 15;
+            this.len_Num_Lab.Text = "指定长度";
+            this.len_Num_Lab.Visible = false;
             // 
             // button2
             // 
@@ -247,13 +248,13 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Multiselect = true;
             // 
-            // Repeat_Form
+            // Option_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(368, 203);
             this.Controls.Add(this.len_Num_Numer);
-            this.Controls.Add(this.Len_Num_Lab);
+            this.Controls.Add(this.len_Num_Lab);
             this.Controls.Add(this.keyWord_Chebox);
             this.Controls.Add(this.keyWords_TB);
             this.Controls.Add(this.button4);
@@ -270,7 +271,7 @@
             this.Controls.Add(label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Repeat_Form";
+            this.Name = "Option_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "参数填写";
             ((System.ComponentModel.ISupportInitialize)(this.col_Num_Numer)).EndInit();
@@ -294,7 +295,7 @@
         private System.Windows.Forms.TextBox keyWords_TB;
         private System.Windows.Forms.CheckBox keyWord_Chebox;
         private System.Windows.Forms.NumericUpDown len_Num_Numer;
-        private System.Windows.Forms.Label Len_Num_Lab;
+        private System.Windows.Forms.Label len_Num_Lab;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }

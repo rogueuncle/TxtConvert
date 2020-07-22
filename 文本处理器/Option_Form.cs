@@ -27,7 +27,7 @@ namespace 文本处理器
         {
             split_Text_Lab.Visible = false;
             col_Num_Lab.Visible = false;
-            Len_Num_Lab.Visible = false;
+            len_Num_Lab.Visible = false;
 
             split_Text_TB.Visible = false;
             keyWords_TB.Visible = false;
@@ -58,6 +58,14 @@ namespace 文本处理器
                     col_Num_Numer.Visible = true;
                     keyWord_Chebox.Visible = true;
                     keyWords_TB.Visible = true;
+                    
+                    len_Num_Lab.Visible = true;
+                    len_Num_Numer.Visible = true;
+
+                    if (col_Num_Numer.Value == -1)
+                    {
+                        len_Num_Numer.Enabled = false;
+                    }
                     this.Height = 241;
                     return true;
                 //case Window_Type.删除行:
@@ -164,6 +172,16 @@ namespace 文本处理器
             }
         }
 
-        
+        private void col_Num_Numer_ValueChanged(object sender, EventArgs e)
+        {
+            if (col_Num_Numer.Value == -1)
+            {
+                len_Num_Numer.Enabled = false;
+            }
+            else
+            {
+                len_Num_Numer.Enabled = true;
+            }
+        }
     }
 }

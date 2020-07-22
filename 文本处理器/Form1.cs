@@ -51,6 +51,12 @@ namespace 文本处理器
             if (repeat_Form.ShowDialog() == DialogResult.OK)
             {
                 Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
+
+                if (repeat_Col_Form_Data.Col_Num != -1)
+                {
+
+                }
+                
                 if (repeat_Col_Form_Data._Need_Key_Words)
                 {
                     ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
@@ -106,5 +112,9 @@ namespace 文本处理器
         /// 关键词列表
         /// </summary>
         public string[] Key_Words;
+        /// <summary>
+        /// 过滤长度
+        /// </summary>
+        public int Text_Len;
     }
 }
