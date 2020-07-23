@@ -377,29 +377,45 @@ namespace 文本处理器
                     string text = streamReader.ReadLine();
                     string wtext = text;
 
-                    if (Data.Col_Num != -1) wtext = _Get_Col_Val(text, Data.Col_Num, Data.Splite_Txt);
                     
-                    if (Data.Text_Len != -1) wtext = wtext.Length >= Data.Text_Len ? wtext : null;
-                    if (Data.Text_Len != -1 && wtext.Length < Data.Text_Len)
+                    if (Data.Col_Num != -1)
                     {
-                        continue;
-                        //wtext = null;
-                    }
-
-
-                    if (Data.Key_Words.Length != 0)
-                    {
-                        foreach (string key in Data.Key_Words)
+                        // 如果列号不等于-1，如果长度不等于-1并且列值长度小于指定长度并且不包含
+                        string col_val = _Get_Col_Val(text, Data.Col_Num, Data.Splite_Txt);
+                        if (Data.Text_Len != -1 && col_val.Length < Data.Text_Len) continue;
+                        if (Data.Key_Words.Length != 0)
                         {
-                            if (wtext.IndexOf(key) != -1)
+                            foreach (string key in Data.Key_Words)
                             {
-                                wtext = null;
-                                break;
+                                if (col_val.IndexOf(key) != -1)
+                                {
+                                    wtext = null;
+                                    break;
+                                }
                             }
                         }
+                        else
+                        {
+                            wtext = _Clean_Col(text, Data.Col_Num, Data.Splite_Txt);
+                        }
+                        
                     }
-
-
+                    else
+                    {
+                        if (Data.Text_Len != -1 && wtext.Length < Data.Text_Len) continue;
+                        if (Data.Key_Words.Length != 0)
+                        {
+                            foreach (string key in Data.Key_Words)
+                            {
+                                if (wtext.IndexOf(key) != -1)
+                                {
+                                    wtext = null;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                    }
                     streamWriter.Write(wtext);
                 }
 

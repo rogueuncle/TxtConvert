@@ -15,7 +15,7 @@ namespace 文本处理器
         Repeat_Col_Form Rdata = new Repeat_Col_Form();
         public enum Window_Type
         {
-            去重复,删除内容
+            按行去重复,按列去重复,删除列,删除行, 删除包含关键词的列
         }
         public Option_Form()
         {
@@ -23,64 +23,84 @@ namespace 文本处理器
             
         }
 
+
         public bool init(Window_Type window_Type)
         {
+            #region 还原页面
             split_Text_Lab.Visible = false;
             col_Num_Lab.Visible = false;
             len_Num_Lab.Visible = false;
 
             split_Text_TB.Visible = false;
+            
             keyWords_TB.Visible = false;
+            keyWords_TB.Location = new Point(72, 147);
 
             keyWord_Chebox.Visible = false;
+            keyWord_Chebox.Location = new Point(12, 162);
 
 
             col_Num_Numer.Visible = false;
             len_Num_Numer.Visible = false;
-
+            #endregion
 
             switch (window_Type)
             {
-                case Window_Type.去重复:
-                    split_Text_Lab.Visible = true;
-                    col_Num_Lab.Visible = true;
-                    split_Text_TB.Visible = true;
-                    
-                    col_Num_Numer.Visible = true;
-                    this.Height = 188;
+                case Window_Type.按行去重复:
+                    this.Height = 120;
                     return true;
                     
-                case Window_Type.删除内容:
+                case Window_Type.按列去重复:
                     split_Text_Lab.Visible = true;
-                    col_Num_Lab.Visible = true;
                     split_Text_TB.Visible = true;
-                    keyWord_Chebox.Visible = true;
-                    col_Num_Numer.Visible = true;
-                    keyWord_Chebox.Visible = true;
-                    keyWords_TB.Visible = true;
-                    
-                    len_Num_Lab.Visible = true;
-                    len_Num_Numer.Visible = true;
 
-                    if (col_Num_Numer.Value == -1)
-                    {
-                        len_Num_Numer.Enabled = false;
-                    }
+                    col_Num_Lab.Visible = true;
+                    col_Num_Numer.Visible = true;
+
+                    this.Height = 185;
+                    return true;
+
+                case Window_Type.删除行:
+                    keyWords_TB.Visible = true;
+                    keyWords_TB.Enabled = true;
+                    keyWords_TB.Location = new Point(72, 87);
+
+                    keyWord_Chebox.Visible = true;
+                    keyWord_Chebox.Checked = true;
+                    keyWord_Chebox.Enabled = false;
+                    keyWord_Chebox.Location = new Point(12,102);
+                    
+                    this.Height = 182;
+                    return true;
+                case Window_Type.删除列:
+                    split_Text_Lab.Visible = true;
+                    split_Text_TB.Visible = true;
+
+                    col_Num_Lab.Visible = true;
+                    col_Num_Numer.Visible = true;
+
+                    this.Height = 185;
+                    return true;
+
+                case Window_Type.删除包含关键词的列:
+                    split_Text_Lab.Visible = true;
+                    split_Text_TB.Visible = true;
+
+                    col_Num_Lab.Visible = true;
+                    col_Num_Numer.Visible = true;
+
+                    keyWord_Chebox.Visible = true;
+                    keyWord_Chebox.Checked = true;
+                    keyWord_Chebox.Enabled = false;
+
+                    keyWords_TB.Visible = true;
                     this.Height = 241;
                     return true;
-                //case Window_Type.删除行:
-                //    textBox4.Visible = true;
-                //    checkBox1.Visible = true;
-                //    textBox4.Location = new Point(71, 87);
-                //    checkBox1.Location = new Point(11, 105);
-                //    checkBox1.Checked = true;
-                //    this.Height = 184;
-
-                //    break;
                 default:
                     return false;
             }
         }
+
 
         /// <summary>
         /// 获取界面设置的内容
@@ -129,17 +149,20 @@ namespace 文本处理器
                 MessageBox.Show("保存文件地址未填写!");
                 return;
             }
-            if (split_Text_TB.Text == "")
+
+            if (split_Text_TB.Visible && split_Text_TB.Text == "")
             {
                 MessageBox.Show("分隔符未填写!");
                 return;
             }
 
-            if (keyWord_Chebox.Checked && keyWords_TB.Lines.Length == 0)
+
+            if (keyWords_TB.Enabled && keyWords_TB.Lines.Length == 0)
             {
                 MessageBox.Show("关键词未填写!");
                 return;
             }
+
             Rdata.Col_Num = (int)col_Num_Numer.Value;
             Rdata.Splite_Txt = split_Text_TB.Text;
             Rdata._Need_Key_Words = keyWord_Chebox.Checked;
@@ -169,18 +192,6 @@ namespace 文本处理器
             else
             {
                 keyWords_TB.ReadOnly = true;
-            }
-        }
-
-        private void col_Num_Numer_ValueChanged(object sender, EventArgs e)
-        {
-            if (col_Num_Numer.Value == -1)
-            {
-                len_Num_Numer.Enabled = false;
-            }
-            else
-            {
-                len_Num_Numer.Enabled = true;
             }
         }
     }

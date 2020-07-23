@@ -92,7 +92,7 @@
             // 
             // input_Files_TB
             // 
-            this.input_Files_TB.Location = new System.Drawing.Point(71, 13);
+            this.input_Files_TB.Location = new System.Drawing.Point(72, 14);
             this.input_Files_TB.Name = "input_Files_TB";
             this.input_Files_TB.ReadOnly = true;
             this.input_Files_TB.Size = new System.Drawing.Size(197, 21);
@@ -100,7 +100,7 @@
             // 
             // save_File_TB
             // 
-            this.save_File_TB.Location = new System.Drawing.Point(71, 52);
+            this.save_File_TB.Location = new System.Drawing.Point(72, 52);
             this.save_File_TB.Name = "save_File_TB";
             this.save_File_TB.ReadOnly = true;
             this.save_File_TB.Size = new System.Drawing.Size(197, 21);
@@ -108,7 +108,7 @@
             // 
             // split_Text_TB
             // 
-            this.split_Text_TB.Location = new System.Drawing.Point(71, 87);
+            this.split_Text_TB.Location = new System.Drawing.Point(72, 87);
             this.split_Text_TB.Name = "split_Text_TB";
             this.split_Text_TB.Size = new System.Drawing.Size(72, 21);
             this.split_Text_TB.TabIndex = 6;
@@ -119,7 +119,7 @@
             // 
             // col_Num_Numer
             // 
-            this.col_Num_Numer.Location = new System.Drawing.Point(71, 120);
+            this.col_Num_Numer.Location = new System.Drawing.Point(72, 120);
             this.col_Num_Numer.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -140,7 +140,6 @@
             0,
             -2147483648});
             this.col_Num_Numer.Visible = false;
-            this.col_Num_Numer.ValueChanged += new System.EventHandler(this.col_Num_Numer_ValueChanged);
             // 
             // button3
             // 
@@ -164,7 +163,7 @@
             // 
             // keyWords_TB
             // 
-            this.keyWords_TB.Location = new System.Drawing.Point(71, 147);
+            this.keyWords_TB.Location = new System.Drawing.Point(72, 147);
             this.keyWords_TB.Multiline = true;
             this.keyWords_TB.Name = "keyWords_TB";
             this.keyWords_TB.ReadOnly = true;
@@ -176,8 +175,8 @@
             // 
             // keyWord_Chebox
             // 
-            this.keyWord_Chebox.Location = new System.Drawing.Point(11, 164);
-            this.keyWord_Chebox.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.keyWord_Chebox.Location = new System.Drawing.Point(12, 162);
+            this.keyWord_Chebox.Margin = new System.Windows.Forms.Padding(0);
             this.keyWord_Chebox.Name = "keyWord_Chebox";
             this.keyWord_Chebox.Size = new System.Drawing.Size(60, 18);
             this.keyWord_Chebox.TabIndex = 14;
