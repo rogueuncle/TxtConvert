@@ -14,127 +14,43 @@ namespace 文本处理器
 {
     class ConvertText
     {
-        #region 去重复
-        /// <summary>
-        /// 对文件按行去重复
-        /// </summary>
-        /// <param name="Input_FileName">要被处理对文件列表</param>
-        /// <param name="Save_FilePath">保存文件夹地址</param>
-        /// <returns></returns>
-        public static bool Repeat_Clean_Rows(string[] Input_FileName, string Save_FilePath)
-        {
-            
-            HashSet<string> data = new HashSet<string>();
-
-            foreach (var filename in Input_FileName)
-            {
-
-                StreamReader streamReader = new StreamReader(filename);
-
-
-                while (streamReader.EndOfStream != true)
-                {
-                    data.Add(streamReader.ReadLine());
-                }
-                streamReader.Close();
-                streamReader.Dispose();
-
-                FileInfo fileInfo = new FileInfo(filename);
-                StreamWriter streamWriter = new StreamWriter(Path.Combine(Save_FilePath, fileInfo.Name), false, Encoding.UTF8, 1024 * 1024);
-
-                foreach (var value in data)
-                {
-                    streamWriter.WriteLine(value);
-                }
-                streamWriter.Close();
-                streamWriter.Dispose();
-
-                data.Clear();
-
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// 对文件按列去重复
-        /// </summary>
-        /// <param name="Input_FileName">要被处理对文件列表</param>
-        /// <param name="Save_FilePath">保存文件夹地址</param>
-        /// <param name="Col_Number">被处理的列索引</param>
-        /// <param name="Splite_Text">分割文本</param>
-        /// <returns></returns>
-        public static bool Repeat_Clean_Col(string[] Input_FileName, string Save_FilePath, int Col_Number,
-                                            string Splite_Text)
-        {
-            
-
-            int _col_num = Col_Number + 1;
-            char[] _splite_txt = Splite_Text.ToCharArray();
-
-            Dictionary<string, string> data = new Dictionary<string, string>();
-
-
-            foreach (var filename in Input_FileName)
-            {
-                StreamReader streamReader = new StreamReader(filename);
-
-                while (streamReader.EndOfStream != true)
-                {
-                    var _text = streamReader.ReadLine();
-                    try
-                    {
-                        data.Add(_text.Split(_splite_txt, _col_num)[Col_Number], _text);
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-
-                }
-                streamReader.Close();
-                streamReader.Dispose();
-
-                FileInfo fileInfo = new FileInfo(filename);
-                StreamWriter streamWriter = new StreamWriter(Path.Combine(Save_FilePath, fileInfo.Name), false, Encoding.UTF8, 1024 * 1024);
-
-                foreach (var value in data)
-                {
-                    streamWriter.WriteLine(value.Value);
-                }
-                streamWriter.Close();
-                streamWriter.Dispose();
-
-                data.Clear();
-
-            }
-
-            return true;
-        }
-        #endregion
-
-        #region 删除文本
+        #region 公共函数
         /// <summary>
         /// 删除指定列，返回剩余文本
         /// </summary>
         /// <param name="Text">要被删除的文本</param>
         /// <param name="Col">指定列</param>
-        /// <param name="Splite_Text">用来分割的文本</param>
+        /// <param name="Split_Text">用来分割的文本</param>
         /// <returns></returns>
-        private static string _Clean_Col(string Text, int Col, string Splite_Text)
+        public static string _Clean_Col(string Text, int Col, string Split_Text)
         {
-            int index = -1;
-            int _addr_s = -1;
-            while (index < Col - 1)
+
+            int split_len = Split_Text.Length;
+            int _addr_s = Text.IndexOf(Split_Text) + split_len;
+            if (Col == 0)
             {
-                _addr_s = Text.IndexOf(Splite_Text, _addr_s + 1);
+                return Text.Substring(_addr_s);
+            }
+            if (Col == 1)
+            {
+                return Text.Substring(0, _addr_s) + Text.Substring(Text.IndexOf(Split_Text, _addr_s) + split_len);
+            }
+
+            int index = 0;
+            
+            do
+            {
+                _addr_s = Text.IndexOf(Split_Text, _addr_s);
                 if (_addr_s == -1)
                 {
                     return null;
                 }
+                _addr_s += split_len;
                 index++;
-            }
-            int _addr_e = Text.IndexOf(Splite_Text, _addr_s + 1);
+            } while (index < Col);
+
+            
+            int _addr_e = Text.IndexOf(Split_Text, _addr_s);
             if (_addr_e == -1) return Text.Substring(0, _addr_s);
 
             return Text.Substring(0, _addr_s) + Text.Substring(_addr_e) + "\r\n";
@@ -152,8 +68,8 @@ namespace 文本处理器
         {
             int index = -1;
             int _addr_s = -1;
-            
-            
+
+
             string coltext;
             while (index < Col - 1)
             {
@@ -219,7 +135,7 @@ namespace 文本处理器
         /// <param name="Col">列序号</param>
         /// <param name="Splite_Text">分割文本</param>
         /// <returns></returns>
-        public static string _Get_Col_Val(string Text,int Col,string Splite_Text)
+        public static string _Get_Col_Val(string Text, int Col, string Splite_Text)
         {
             int index = -1;
             int _addr_s = -1;
@@ -247,6 +163,102 @@ namespace 文本处理器
             return coltext;
         }
 
+        #endregion
+
+        #region 去重复
+        /// <summary>
+        /// 对文件按行去重复
+        /// </summary>
+        /// <param name="Input_FileName">要被处理对文件列表</param>
+        /// <param name="Save_FilePath">保存文件夹地址</param>
+        /// <returns></returns>
+        public static bool Repeat_Clean_Rows(string[] Input_FileName, string Save_FilePath)
+        {
+            
+            HashSet<string> data = new HashSet<string>();
+
+            foreach (var filename in Input_FileName)
+            {
+
+                StreamReader streamReader = new StreamReader(filename);
+
+
+                while (streamReader.EndOfStream != true)
+                {
+                    data.Add(streamReader.ReadLine());
+                }
+                streamReader.Close();
+                streamReader.Dispose();
+
+                FileInfo fileInfo = new FileInfo(filename);
+                StreamWriter streamWriter = new StreamWriter(Path.Combine(Save_FilePath, fileInfo.Name), false, Encoding.UTF8, 1024 * 1024);
+
+                foreach (var value in data)
+                {
+                    streamWriter.WriteLine(value);
+                }
+                streamWriter.Close();
+                streamWriter.Dispose();
+
+                data.Clear();
+
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 对文件按列去重复
+        /// </summary>
+        /// <param name="Input_FileName">要被处理对文件列表</param>
+        /// <param name="Save_FilePath">保存文件夹地址</param>
+        /// <param name="Col_Number">被处理的列索引</param>
+        /// <param name="Splite_Text">分割文本</param>
+        /// <returns></returns>
+        public static bool Repeat_Clean_Col(string[] Input_FileName, string Save_FilePath, int Col_Number,
+                                            string Splite_Text)
+        {
+            HashSet<string> Data = new HashSet<string>();
+
+            foreach (var filename in Input_FileName)
+            {
+                StreamReader streamReader = new StreamReader(filename);
+
+                FileInfo fileInfo = new FileInfo(filename);
+                StreamWriter streamWriter = new StreamWriter(Path.Combine(Save_FilePath, fileInfo.Name), false, Encoding.UTF8, 1024 * 1024);
+
+
+                while (streamReader.EndOfStream != true)
+                {
+                    var _text = streamReader.ReadLine();
+
+                    string _col_val = _Get_Col_Val(_text, Col_Number, Splite_Text);
+                    if (_col_val != null)
+                    {
+                        if (Data.Contains(_col_val))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            Data.Add(_col_val);
+                            streamWriter.WriteLine(_text);
+                        }
+                        
+                    }
+                }
+                streamReader.Close();
+                streamWriter.Close();
+
+                Data.Clear();
+            }
+
+            return true;
+        }
+        #endregion
+
+        #region 删除文本
+        
         /// <summary>
         /// 去除文本的指定列
         /// </summary>
@@ -257,7 +269,6 @@ namespace 文本处理器
         /// <returns></returns>
         public static bool Screen_Clean_Col(string[] Input_FileName, string Save_FilePath, int Col_Number, string Splite_Text)
         {
-            
             foreach (var filename in Input_FileName)
             {
                 StreamReader streamReader = new StreamReader(filename);

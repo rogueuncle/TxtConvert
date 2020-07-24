@@ -21,7 +21,8 @@ namespace 文本处理器
 
         private void button5_Click(object sender, EventArgs e)
         {
-            ConvertText._Clean_Col_Val("1-2-132",2,"-",new string[1]{ "1"});
+            ConvertText._Clean_Col("0-1-2-3", 2, "-");
+            //ConvertText._Clean_Col_Val("1-2-132",2,"-",new string[1]{ "1"});
         }
 
         #region 去重复

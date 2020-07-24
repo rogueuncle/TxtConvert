@@ -115,7 +115,6 @@
             this.split_Text_TB.Text = "----";
             this.split_Text_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.split_Text_TB.Visible = false;
-            this.split_Text_TB.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // col_Num_Numer
             // 

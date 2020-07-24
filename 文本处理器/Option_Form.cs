@@ -12,7 +12,11 @@ namespace 文本处理器
 {
     public partial class Option_Form : Form
     {
-        Repeat_Col_Form Rdata = new Repeat_Col_Form();
+        /// <summary>
+        /// 当前显示窗体的事件类型
+        /// </summary>
+        Window_Type win_type;
+        
         public enum Window_Type
         {
             按行去重复,按列去重复,删除列,删除行, 删除包含关键词的列
@@ -42,6 +46,8 @@ namespace 文本处理器
 
             col_Num_Numer.Visible = false;
             len_Num_Numer.Visible = false;
+
+            win_type = window_Type;
             #endregion
 
             switch (window_Type)
@@ -108,13 +114,21 @@ namespace 文本处理器
         /// <returns></returns>
         public Repeat_Col_Form Get_Data()
         {
+            Repeat_Col_Form Rdata = new Repeat_Col_Form();
+
+            Rdata.Input_Files = openFileDialog1.FileNames;
+            Rdata.Save_Path = folderBrowserDialog1.SelectedPath;
+            Rdata.Col_Num = (int)col_Num_Numer.Value;
+            Rdata.Splite_Txt = split_Text_TB.Text;
+            Rdata._Need_Key_Words = keyWord_Chebox.Checked;
+            Rdata.Key_Words = keyWords_TB.Lines;
+            Rdata.Splite_Txt = split_Text_TB.Text;
+            
             return Rdata;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var _text = "";
@@ -123,7 +137,6 @@ namespace 文本处理器
                     _text += filename + ",";
                 }
                 input_Files_TB.Text = _text;
-                Rdata.Input_Files = openFileDialog1.FileNames;
             }
         }
 
@@ -133,7 +146,6 @@ namespace 文本处理器
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 save_File_TB.Text = folderBrowserDialog1.SelectedPath;
-                Rdata.Save_Path = folderBrowserDialog1.SelectedPath;
             }
         }
 
@@ -149,32 +161,54 @@ namespace 文本处理器
                 MessageBox.Show("保存文件地址未填写!");
                 return;
             }
-
-            if (split_Text_TB.Visible && split_Text_TB.Text == "")
+            switch (win_type)
             {
-                MessageBox.Show("分隔符未填写!");
-                return;
+                case Window_Type.按行去重复:
+                    break;
+                case Window_Type.按列去重复:
+                    if (split_Text_TB.Text == "")
+                    {
+                        MessageBox.Show("分隔符未填写!");
+                        return;
+                    }
+                    if (col_Num_Numer.Value < 0)
+                    {
+                        MessageBox.Show("列序号不能为负数!");
+                        return;
+                    }
+                    break;
+                case Window_Type.删除列:
+                    if (split_Text_TB.Text == "")
+                    {
+                        MessageBox.Show("分隔符未填写!");
+                        return;
+                    }
+                    if (col_Num_Numer.Value < 0)
+                    {
+                        MessageBox.Show("列序号不能为负数!");
+                        return;
+                    }
+                    break;
+                case Window_Type.删除行:
+                    if (keyWords_TB.Lines.Length == 0)
+                    {
+                        MessageBox.Show("关键词未填写!");
+                        return;
+                    }
+                    break;
+                case Window_Type.删除包含关键词的列:
+                    break;
+                default:
+                    break;
             }
 
+            
 
-            if (keyWords_TB.Enabled && keyWords_TB.Lines.Length == 0)
-            {
-                MessageBox.Show("关键词未填写!");
-                return;
-            }
 
-            Rdata.Col_Num = (int)col_Num_Numer.Value;
-            Rdata.Splite_Txt = split_Text_TB.Text;
-            Rdata._Need_Key_Words = keyWord_Chebox.Checked;
-            Rdata.Key_Words = keyWords_TB.Lines;
+            
 
             this.DialogResult = DialogResult.OK;
             this.Close();
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            Rdata.Splite_Txt = split_Text_TB.Text;
         }
 
         private void button4_Click(object sender, EventArgs e)
