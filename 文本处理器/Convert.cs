@@ -26,12 +26,22 @@ namespace 文本处理器
         {
 
             int split_len = Split_Text.Length;
-            int _addr_s = Text.IndexOf(Split_Text) + split_len;
+            int _addr_s = Text.IndexOf(Split_Text);   //获取第一个分隔符的位置
+
+            if (_addr_s == -1)
+            {
+                return null;  //如果不存在分隔符，则退出
+            }
+            else
+            {
+                _addr_s += split_len;   //如果存在分隔符，则加上分隔符的长度，现在的游标位于分隔符的右侧边缘
+            }
+            
             if (Col == 0)
             {
                 return Text.Substring(_addr_s);
             }
-            if (Col == 1)
+            if (Col == 1)  //如果是第一列，则读取分隔符前的子字符串 加上 下一个分隔符右边的字符串
             {
                 return Text.Substring(0, _addr_s) + Text.Substring(Text.IndexOf(Split_Text, _addr_s) + split_len);
             }
