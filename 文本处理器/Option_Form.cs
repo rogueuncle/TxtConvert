@@ -197,6 +197,21 @@ namespace 文本处理器
                     }
                     break;
                 case Window_Type.删除包含关键词的列:
+                    if (split_Text_TB.Text == "")
+                    {
+                        MessageBox.Show("分隔符未填写!");
+                        return;
+                    }
+                    if (col_Num_Numer.Value < 0)
+                    {
+                        MessageBox.Show("列序号不能为负数!");
+                        return;
+                    }
+                    if (keyWords_TB.Lines.Length == 0)
+                    {
+                        MessageBox.Show("关键词未填写!");
+                        return;
+                    }
                     break;
                 default:
                     break;

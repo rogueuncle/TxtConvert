@@ -21,7 +21,12 @@ namespace 文本处理器
 
         private void button5_Click(object sender, EventArgs e)
         {
-            ConvertText._Clean_Col("0-1-2-3", 2, "-");
+            Console.WriteLine(ConvertText._Clean_Col("0-1--2-3-4", 0, "--"));
+            Console.WriteLine(ConvertText._Clean_Col("0-1--2-3--4", 1, "--"));
+            Console.WriteLine(ConvertText._Clean_Col("0-1-2-3-4", 2, "-"));
+            Console.WriteLine(ConvertText._Clean_Col("0-1-2-3-4", 3, "-"));
+            Console.WriteLine(ConvertText._Clean_Col("0-1-2-3-4", 4, "-"));
+            Console.WriteLine(ConvertText._Clean_Col("0-1-2-3-4", 5, "-"));
             //ConvertText._Clean_Col_Val("1-2-132",2,"-",new string[1]{ "1"});
         }
 
@@ -58,18 +63,6 @@ namespace 文本处理器
             {
                 Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
                 ConvertText.Screen_Clean_Row(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path, repeat_Col_Form_Data.Key_Words);
-
-                //if (repeat_Col_Form_Data._Need_Key_Words)
-                //{
-                //    ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
-                //    repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt, repeat_Col_Form_Data.Key_Words);
-                //}
-                //else
-                //{
-                //    ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
-                //    repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt);
-                //}
-
             }
             
         }
@@ -82,17 +75,6 @@ namespace 文本处理器
                 Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
                 ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
                 repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt);
-                //if (repeat_Col_Form_Data._Need_Key_Words)
-                //{
-                //    ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
-                //    repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt, repeat_Col_Form_Data.Key_Words);
-                //}
-                //else
-                //{
-                //    ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
-                //    repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt);
-                //}
-
             }
         }
 
@@ -104,6 +86,27 @@ namespace 文本处理器
                 Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
                 ConvertText.Screen_Clean_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
                 repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt, repeat_Col_Form_Data.Key_Words);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            repeat_Form.init(Option_Form.Window_Type.删除包含关键词的列);
+            if (repeat_Form.ShowDialog() == DialogResult.OK)
+            {
+                Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
+                ConvertText.Screen_Save_Col(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path,
+                repeat_Col_Form_Data.Col_Num, repeat_Col_Form_Data.Splite_Txt, repeat_Col_Form_Data.Key_Words);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            repeat_Form.init(Option_Form.Window_Type.删除行);
+            if (repeat_Form.ShowDialog() == DialogResult.OK)
+            {
+                Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
+                ConvertText.Screen_Save_Row(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path, repeat_Col_Form_Data.Key_Words);
             }
         }
     }

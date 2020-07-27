@@ -39,17 +39,27 @@ namespace 文本处理器
             
             if (Col == 0)
             {
-                return Text.Substring(_addr_s);
+                return Text.Substring(_addr_s) + "\r\n";
             }
             if (Col == 1)  //如果是第一列，则读取分隔符前的子字符串 加上 下一个分隔符右边的字符串
             {
-                return Text.Substring(0, _addr_s) + Text.Substring(Text.IndexOf(Split_Text, _addr_s) + split_len);
+                int _ = Text.IndexOf(Split_Text, _addr_s);
+                if (_ == -1)
+                {
+                    return Text.Substring(0, _addr_s - split_len) + "\r\n";
+                }
+                else
+                {
+                    return Text.Substring(0, _addr_s) + Text.Substring(_+split_len) + "\r\n";
+                }
+                
             }
 
-            int index = 0;
+            int index = 1;
             
             do
             {
+                
                 _addr_s = Text.IndexOf(Split_Text, _addr_s);
                 if (_addr_s == -1)
                 {
@@ -61,9 +71,9 @@ namespace 文本处理器
 
             
             int _addr_e = Text.IndexOf(Split_Text, _addr_s);
-            if (_addr_e == -1) return Text.Substring(0, _addr_s);
+            if (_addr_e == -1) return Text.Substring(0, _addr_s - split_len) + "\r\n";
 
-            return Text.Substring(0, _addr_s) + Text.Substring(_addr_e) + "\r\n";
+            return Text.Substring(0, _addr_s) + Text.Substring(_addr_e + split_len) + "\r\n";
         }
 
         /// <summary>
@@ -151,15 +161,29 @@ namespace 文本处理器
             int _addr_s = -1;
             string coltext;
 
-            while (index < Col - 1)
+            do
             {
                 _addr_s = Text.IndexOf(Splite_Text, _addr_s + 1);  //寻找分割文本的位置
                 if (_addr_s == -1)  //列数不足的略去
                 {
+                    if (Col == 0)
+                    {
+                        return Text;
+                    }
                     return null;
                 }
                 index++;
-            }
+            } while (index < Col - 1);
+
+            //while (index < Col - 1)
+            //{
+            //    _addr_s = Text.IndexOf(Splite_Text, _addr_s + 1);  //寻找分割文本的位置
+            //    if (_addr_s == -1)  //列数不足的略去
+            //    {
+            //        return null;
+            //    }
+            //    index++;
+            //}
             int _addr_e = Text.IndexOf(Splite_Text, _addr_s + 1);  //寻找指定列的结尾位置
 
             if (_addr_e == -1)
@@ -267,7 +291,7 @@ namespace 文本处理器
         }
         #endregion
 
-        #region 删除文本
+        #region 筛选文本
         
         /// <summary>
         /// 去除文本的指定列
@@ -383,68 +407,98 @@ namespace 文本处理器
             return true;
         }
 
-
-        public static bool Screen_Clean(Repeat_Col_Form Data)
+        /// <summary>
+        /// 根据关键词数组保存文本行
+        /// </summary>
+        /// <param name="Input_FileName">导入的文件数组</param>
+        /// <param name="Save_FilePath">保持文件夹位置</param>
+        /// <param name="KeyWord">关键词</param>
+        /// <returns></returns>
+        public static bool Screen_Save_Row(string[] Input_FileName, string Save_FilePath, string[] KeyWord)
         {
-            foreach (var filename in Data.Input_Files)
+
+            if (KeyWord.Length == 0) return false;
+
+            foreach (string filename in Input_FileName)
+            {
+                StreamReader streamReader = new StreamReader(filename);
+                string save_path = Path.Combine(Save_FilePath, new FileInfo(filename).Name);
+                StreamWriter streamWriter = new StreamWriter(save_path, false, Encoding.UTF8, 1024 * 1024);
+                if (KeyWord.Length == 1)
+                {
+                    string keyword = KeyWord[0];
+                    while (!streamReader.EndOfStream)
+                    {
+                        string text = streamReader.ReadLine();
+                        if (text.IndexOf(keyword) != -1)
+                        {
+                            streamWriter.WriteLine(text);
+                        }
+                    }
+                }
+                else
+                {
+                    while (!streamReader.EndOfStream)
+                    {
+                        string text = streamReader.ReadLine();
+                        bool state = true;
+                        foreach (string keyword in KeyWord)
+                        {
+                            if (text.IndexOf(keyword) != -1)
+                            {
+                                state = false;
+                                break;
+                            }
+                        }
+                        if (state) streamWriter.WriteLine(text);
+                    }
+                }
+
+                streamReader.Close();
+                streamWriter.Close();
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 根据关键词数组保存文本的指定列
+        /// </summary>
+        /// <param name="Input_FileName">到进行去除到文件列表</param>
+        /// <param name="Save_FilePath">要保存到文件夹地址</param>
+        /// <param name="Col_Number">指定列</param>
+        /// <param name="Splite_Text">分割文本</param>
+        /// <param name="KeyWord">关键词列表</param>
+        /// <returns></returns>
+        public static bool Screen_Save_Col(string[] Input_FileName, string Save_FilePath, int Col_Number, string Splite_Text, string[] KeyWord)
+        {
+            foreach (var filename in Input_FileName)
             {
                 StreamReader streamReader = new StreamReader(filename);
                 FileInfo fileInfo = new FileInfo(filename);
 
-                StreamWriter streamWriter = new StreamWriter(Path.Combine(Data.Save_Path, fileInfo.Name), false, Encoding.UTF8, 1024 * 1024);
 
+                StreamWriter streamWriter = new StreamWriter(Path.Combine(Save_FilePath, fileInfo.Name), false, Encoding.UTF8, 1024 * 1024);
                 while (!streamReader.EndOfStream)
                 {
                     string text = streamReader.ReadLine();
-                    string wtext = text;
-
-                    
-                    if (Data.Col_Num != -1)
+                    string _col_val = _Get_Col_Val(text, Col_Number, Splite_Text);
+                    if (_col_val == null)
                     {
-                        // 如果列号不等于-1，如果长度不等于-1并且列值长度小于指定长度并且不包含
-                        string col_val = _Get_Col_Val(text, Data.Col_Num, Data.Splite_Txt);
-                        if (Data.Text_Len != -1 && col_val.Length < Data.Text_Len) continue;
-                        if (Data.Key_Words.Length != 0)
-                        {
-                            foreach (string key in Data.Key_Words)
-                            {
-                                if (col_val.IndexOf(key) != -1)
-                                {
-                                    wtext = null;
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            wtext = _Clean_Col(text, Data.Col_Num, Data.Splite_Txt);
-                        }
-                        
+                        continue;
                     }
                     else
                     {
-                        if (Data.Text_Len != -1 && wtext.Length < Data.Text_Len) continue;
-                        if (Data.Key_Words.Length != 0)
+                        foreach (string key in KeyWord)
                         {
-                            foreach (string key in Data.Key_Words)
+                            if(_col_val.IndexOf(key) != -1)
                             {
-                                if (wtext.IndexOf(key) != -1)
-                                {
-                                    wtext = null;
-                                    break;
-                                }
+                                streamWriter.Write(text + "\r\n");
+                                break;
                             }
                         }
-                        
                     }
-                    streamWriter.Write(wtext);
+                    
                 }
-
-                   
-                
-                
-                
-                
                 streamWriter.Close();
                 streamReader.Close();
                 streamReader.Dispose();
@@ -452,6 +506,7 @@ namespace 文本处理器
             }
             return true;
         }
+
         #endregion
 
     }
