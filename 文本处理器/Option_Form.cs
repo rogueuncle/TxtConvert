@@ -19,7 +19,8 @@ namespace 文本处理器
         
         public enum Window_Type
         {
-            按行去重复,按列去重复,删除列,删除行, 删除包含关键词的列
+            按行去重复,按列去重复,删除列,删除行, 删除包含关键词的列,
+            指定长度行,指定列长度,提取行,
         }
         public Option_Form()
         {
@@ -33,7 +34,10 @@ namespace 文本处理器
             #region 还原页面
             split_Text_Lab.Visible = false;
             col_Num_Lab.Visible = false;
+            col_Num_Lab.Text = "选择列数";
             len_Num_Lab.Visible = false;
+            len_Num_Lab.Text = "指定长度";
+
 
             split_Text_TB.Visible = false;
             
@@ -45,7 +49,10 @@ namespace 文本处理器
 
 
             col_Num_Numer.Visible = false;
+            col_Num_Numer.Maximum = 1000;
+
             len_Num_Numer.Visible = false;
+            len_Num_Numer.Maximum = 1000;
 
             win_type = window_Type;
             #endregion
@@ -102,6 +109,35 @@ namespace 文本处理器
                     keyWords_TB.Visible = true;
                     this.Height = 241;
                     return true;
+                case Window_Type.指定长度行:
+                    len_Num_Lab.Visible = true;
+                    len_Num_Numer.Visible = true;
+                    this.Height = 184;
+                    return true;
+                case Window_Type.指定列长度:
+                    split_Text_Lab.Visible = true;
+                    split_Text_TB.Visible = true;
+
+                    col_Num_Lab.Visible = true;
+                    col_Num_Numer.Visible = true;
+
+                    len_Num_Lab.Visible = true;
+                    len_Num_Numer.Visible = true;
+                    this.Height = 184;
+                    return true;
+                case Window_Type.提取行:
+                    col_Num_Lab.Visible = true;
+                    col_Num_Lab.Text = "起始行数";
+                    col_Num_Numer.Visible = true;
+                    col_Num_Numer.Maximum = int.MaxValue;
+
+                    len_Num_Lab.Visible = true;
+                    len_Num_Lab.Text = "结束行数";
+                    len_Num_Numer.Visible = true;
+                    len_Num_Numer.Maximum = int.MaxValue;
+
+                    this.Height = 184;
+                    return true;
                 default:
                     return false;
             }
@@ -123,6 +159,7 @@ namespace 文本处理器
             Rdata._Need_Key_Words = keyWord_Chebox.Checked;
             Rdata.Key_Words = keyWords_TB.Lines;
             Rdata.Splite_Txt = split_Text_TB.Text;
+            Rdata.Text_Len = (int)len_Num_Numer.Value;
             
             return Rdata;
         }
@@ -210,6 +247,47 @@ namespace 文本处理器
                     if (keyWords_TB.Lines.Length == 0)
                     {
                         MessageBox.Show("关键词未填写!");
+                        return;
+                    }
+                    break;
+                case Window_Type.指定长度行:
+                    if (len_Num_Numer.Value < 1)
+                    {
+                        MessageBox.Show("长度必须大于0!");
+                        return;
+                    };
+                    break;
+                case Window_Type.指定列长度:
+                    if (split_Text_TB.Text == "")
+                    {
+                        MessageBox.Show("分隔符未填写!");
+                        return;
+                    }
+                    if (col_Num_Numer.Value < 0)
+                    {
+                        MessageBox.Show("列序号不能为负数!");
+                        return;
+                    }
+                    if (len_Num_Numer.Value < 1)
+                    {
+                        MessageBox.Show("长度必须大于0!");
+                        return;
+                    };
+                    break;
+                case Window_Type.提取行:
+                    if (col_Num_Numer.Value < 0)
+                    {
+                        MessageBox.Show("起始行数不能小于0!");
+                        return;
+                    }
+                    if (len_Num_Numer.Value < 1)
+                    {
+                        MessageBox.Show("结束行数不能小于0!");
+                        return;
+                    };
+                    if (len_Num_Numer.Value <= col_Num_Numer.Value)
+                    {
+                        MessageBox.Show("结束行数必须大于起始行数!");
                         return;
                     }
                     break;

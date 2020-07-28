@@ -119,11 +119,6 @@
             // col_Num_Numer
             // 
             this.col_Num_Numer.Location = new System.Drawing.Point(72, 120);
-            this.col_Num_Numer.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.col_Num_Numer.Minimum = new decimal(new int[] {
             1,
             0,
@@ -187,11 +182,6 @@
             // len_Num_Numer
             // 
             this.len_Num_Numer.Location = new System.Drawing.Point(227, 120);
-            this.len_Num_Numer.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.len_Num_Numer.Minimum = new decimal(new int[] {
             1,
             0,

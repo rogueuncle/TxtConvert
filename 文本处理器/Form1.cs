@@ -21,13 +21,21 @@ namespace 文本处理器
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(ConvertText._Clean_Col("0-1--2-3-4", 0, "--"));
-            Console.WriteLine(ConvertText._Clean_Col("0-1--2-3--4", 1, "--"));
-            Console.WriteLine(ConvertText._Clean_Col("0-1-2-3-4", 2, "-"));
-            Console.WriteLine(ConvertText._Clean_Col("0-1-2-3-4", 3, "-"));
-            Console.WriteLine(ConvertText._Clean_Col("0-1-2-3-4", 4, "-"));
-            Console.WriteLine(ConvertText._Clean_Col("0-1-2-3-4", 5, "-"));
-            //ConvertText._Clean_Col_Val("1-2-132",2,"-",new string[1]{ "1"});
+            sss(1, "0-1-", "-");
+            sss(2, "0-1", "-");
+            sss(3, "0-1-", "-");
+            sss(4, "0-1", "-");
+        }
+
+        public void sss(int Col_Num,string text,string Split_Text)
+        {
+            int addr = 0 - Split_Text.Length;
+            for (int i = 0; i < Col_Num; i++)
+            {
+                addr = text.IndexOf(Split_Text, addr+Split_Text.Length);
+                if (addr == -1) break;
+            }
+            Console.WriteLine(addr);
         }
 
         #region 去重复
@@ -107,6 +115,61 @@ namespace 文本处理器
             {
                 Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
                 ConvertText.Screen_Save_Row(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path, repeat_Col_Form_Data.Key_Words);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            repeat_Form.init(Option_Form.Window_Type.指定长度行);
+            if (repeat_Form.ShowDialog() == DialogResult.OK)
+            {
+                Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
+                ConvertText.Screen_Save_Row_Len(repeat_Col_Form_Data.Input_Files, repeat_Col_Form_Data.Save_Path, repeat_Col_Form_Data.Text_Len);
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            repeat_Form.init(Option_Form.Window_Type.指定列长度);
+            if (repeat_Form.ShowDialog() == DialogResult.OK)
+            {
+                Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
+                ConvertText.Screen_Save_Col_Len(repeat_Col_Form_Data.Input_Files, 
+                    repeat_Col_Form_Data.Save_Path, repeat_Col_Form_Data.Splite_Txt,repeat_Col_Form_Data.Col_Num,
+                    repeat_Col_Form_Data.Text_Len);
+            }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            repeat_Form.init(Option_Form.Window_Type.提取行);
+            if (repeat_Form.ShowDialog() == DialogResult.OK)
+            {
+                Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
+                ConvertText.Screen_Save_Range_Row(repeat_Col_Form_Data.Input_Files,
+                    repeat_Col_Form_Data.Save_Path, repeat_Col_Form_Data.Col_Num,
+                    repeat_Col_Form_Data.Text_Len);
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            repeat_Form.init(Option_Form.Window_Type.按列去重复);
+            if (repeat_Form.ShowDialog() == DialogResult.OK)
+            {
+                Repeat_Col_Form repeat_Col_Form_Data = repeat_Form.Get_Data();
+                ConvertText.Screen_Save_Col_Split_Len(repeat_Col_Form_Data.Input_Files,
+                    repeat_Col_Form_Data.Save_Path, repeat_Col_Form_Data.Splite_Txt, repeat_Col_Form_Data.Col_Num);
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_行);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+
             }
         }
     }

@@ -507,7 +507,173 @@ namespace 文本处理器
             return true;
         }
 
+        /// <summary>
+        /// 保留指定长度的行
+        /// </summary>
+        /// <param name="Input_FileName">读取文件数组</param>
+        /// <param name="Save_FilePath">保存文件夹位置</param>
+        /// <param name="Len_Num">行长度,等于Len_Num</param>
+        /// <returns></returns>
+        public static bool Screen_Save_Row_Len(string [] Input_FileName,string Save_FilePath,int Len_Num)
+        {
+            foreach (var filepath in Input_FileName)
+            {
+                StreamReader file_read = new StreamReader(filepath);
+                StreamWriter file_write = new StreamWriter(Path.Combine(Save_FilePath, Path.GetFileName(filepath)), false, Encoding.UTF8, 1024 * 1024);
+
+                while (!file_read.EndOfStream)
+                {
+                    string text = file_read.ReadLine();
+                    if (text.Length == Len_Num)
+                    {
+                        file_write.WriteLine(text);
+                    }
+                }
+                file_read.Close();
+                file_write.Close();
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 保留指定列长度等于指定长度的行
+        /// </summary>
+        /// <param name="Input_FileName"></param>
+        /// <param name="Save_FilePath"></param>
+        /// <param name="Split_Text"></param>
+        /// <param name="Col_Num">指定列</param>
+        /// <param name="Len_Num">指定长度</param>
+        /// <returns></returns>
+        public static bool Screen_Save_Col_Len(string[] Input_FileName,string Save_FilePath,string Split_Text,int Col_Num,int Len_Num)
+        {
+            foreach (var filepath in Input_FileName)
+            {
+                StreamReader file_read = new StreamReader(filepath);
+                StreamWriter file_write = new StreamWriter(Path.Combine(Save_FilePath, Path.GetFileName(filepath)), false, Encoding.UTF8, 1024 * 1024);
+
+                while (!file_read.EndOfStream)
+                {
+                    string text = file_read.ReadLine();
+                    string col_val = _Get_Col_Val(text, Col_Num, Split_Text);
+
+                    if (col_val != null && col_val.Length == Len_Num)
+                    {
+                        file_write.WriteLine(text);
+                    }
+                }
+                file_read.Close();
+                file_write.Close();
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 提取指定范围的行
+        /// </summary>
+        /// <param name="Input_FileName"></param>
+        /// <param name="Save_FilePath"></param>
+        /// <param name="Start">开始行数(包含)</param>
+        /// <param name="End">结束行数(包含)</param>
+        /// <returns></returns>
+        public static bool Screen_Save_Range_Row(string[] Input_FileName,string Save_FilePath,int Start,int End)
+        {
+            foreach (var filepath in Input_FileName)
+            {
+                StreamReader file_read = new StreamReader(filepath);
+                StreamWriter file_write = new StreamWriter(Path.Combine(Save_FilePath, Path.GetFileName(filepath)), false, Encoding.UTF8, 1024 * 1024);
+
+                for (int i = 0; i < Start; i++)
+                {
+                    if (!file_read.EndOfStream)
+                    {
+                        file_read.ReadLine();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (file_read.EndOfStream)
+                {
+                    file_read.Close();
+                    file_write.Close();
+                    continue;
+                }
+
+                for (int i = Start; i < End + 1; i++)
+                {
+                    if (!file_read.EndOfStream)
+                    {
+                        file_write.WriteLine(file_read.ReadLine());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                file_read.Close();
+                file_write.Close();
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// 提取行内含有指定数量的列的行
+        /// </summary>
+        /// <param name="Input_FileName"></param>
+        /// <param name="Save_FilePath"></param>
+        /// <param name="Split_Text"></param>
+        /// <param name="Col_Num">指定数量列</param>
+        /// <returns></returns>
+        public static bool Screen_Save_Col_Split_Len(string[] Input_FileName,string Save_FilePath,string Split_Text,int Col_Num)
+        {
+            foreach (var filepath in Input_FileName)
+            {
+                StreamReader file_read = new StreamReader(filepath);
+                StreamWriter file_write = new StreamWriter(Path.Combine(Save_FilePath, Path.GetFileName(filepath)), false, Encoding.UTF8, 1024 * 1024);
+
+                while (!file_read.EndOfStream)
+                {
+                    string text = file_read.ReadLine();
+
+                    if (Col_Num == 1)
+                    {
+                        file_write.WriteLine(text);
+                    }
+                    else if (Col_Num == 2)
+                    {
+                        if (text.Contains(Split_Text))
+                        {
+                            file_write.WriteLine(text);
+                        }
+                    }
+                    else
+                    {
+                        int addr = 0 - Split_Text.Length;
+                        for (int i = 0; i < Col_Num; i++)
+                        {
+                            addr = text.IndexOf(Split_Text, addr + Split_Text.Length);
+                            if (addr == -1) break;
+                        }
+                        if (addr != -1) file_write.WriteLine(text);
+                    }
+
+                    
+                }
+                file_read.Close();
+                file_write.Close();
+            }
+            return true;
+        }
+
         #endregion
 
+        #region 集合操作
+        public static bool jiaoji(string File_A,string File_B,string Save_File)
+        {
+            return true;
+        }
+        #endregion
     }
 }
