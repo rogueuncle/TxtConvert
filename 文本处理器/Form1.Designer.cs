@@ -41,18 +41,24 @@
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
+            this.button18 = new System.Windows.Forms.Button();
+            this.button19 = new System.Windows.Forms.Button();
+            this.button20 = new System.Windows.Forms.Button();
+            this.button21 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(487, 233);
+            this.button5.Location = new System.Drawing.Point(372, 225);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(78, 42);
             this.button5.TabIndex = 2;
@@ -112,7 +118,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(492, 12);
+            this.button4.Location = new System.Drawing.Point(332, 56);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(74, 38);
             this.button4.TabIndex = 10;
@@ -179,10 +185,50 @@
             this.groupBox1.Controls.Add(this.button12);
             this.groupBox1.Location = new System.Drawing.Point(12, 110);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(174, 165);
+            this.groupBox1.Size = new System.Drawing.Size(174, 157);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "集合操作_按行";
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(6, 108);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(74, 38);
+            this.button16.TabIndex = 17;
+            this.button16.Text = "对称差集";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(86, 20);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(74, 38);
+            this.button15.TabIndex = 16;
+            this.button15.Text = "并集";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(6, 64);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(74, 38);
+            this.button14.TabIndex = 15;
+            this.button14.Text = "补集";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(86, 64);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(74, 38);
+            this.button13.TabIndex = 14;
+            this.button13.Text = "差集";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button12
             // 
@@ -196,54 +242,73 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(228, 110);
+            this.groupBox2.Controls.Add(this.button17);
+            this.groupBox2.Controls.Add(this.button18);
+            this.groupBox2.Controls.Add(this.button19);
+            this.groupBox2.Controls.Add(this.button20);
+            this.groupBox2.Controls.Add(this.button21);
+            this.groupBox2.Location = new System.Drawing.Point(192, 110);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(157, 165);
+            this.groupBox2.Size = new System.Drawing.Size(174, 157);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "集合操作_按列";
             // 
-            // button13
+            // button17
             // 
-            this.button13.Location = new System.Drawing.Point(86, 64);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(74, 38);
-            this.button13.TabIndex = 14;
-            this.button13.Text = "差集";
-            this.button13.UseVisualStyleBackColor = true;
+            this.button17.Location = new System.Drawing.Point(6, 108);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(74, 38);
+            this.button17.TabIndex = 22;
+            this.button17.Text = "对称差集";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
-            // button14
+            // button18
             // 
-            this.button14.Location = new System.Drawing.Point(6, 64);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(74, 38);
-            this.button14.TabIndex = 15;
-            this.button14.Text = "补集";
-            this.button14.UseVisualStyleBackColor = true;
+            this.button18.Location = new System.Drawing.Point(86, 20);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(74, 38);
+            this.button18.TabIndex = 21;
+            this.button18.Text = "并集";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
-            // button15
+            // button19
             // 
-            this.button15.Location = new System.Drawing.Point(86, 20);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(74, 38);
-            this.button15.TabIndex = 16;
-            this.button15.Text = "并集";
-            this.button15.UseVisualStyleBackColor = true;
+            this.button19.Location = new System.Drawing.Point(6, 64);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(74, 38);
+            this.button19.TabIndex = 20;
+            this.button19.Text = "补集";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
-            // button16
+            // button20
             // 
-            this.button16.Location = new System.Drawing.Point(6, 108);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(74, 38);
-            this.button16.TabIndex = 17;
-            this.button16.Text = "对称差集";
-            this.button16.UseVisualStyleBackColor = true;
+            this.button20.Location = new System.Drawing.Point(86, 64);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(74, 38);
+            this.button20.TabIndex = 19;
+            this.button20.Text = "差集";
+            this.button20.UseVisualStyleBackColor = true;
+            this.button20.Click += new System.EventHandler(this.button20_Click);
+            // 
+            // button21
+            // 
+            this.button21.Location = new System.Drawing.Point(6, 20);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(74, 38);
+            this.button21.TabIndex = 18;
+            this.button21.Text = "交集";
+            this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 287);
+            this.ClientSize = new System.Drawing.Size(495, 273);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button11);
@@ -262,6 +327,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -286,6 +352,11 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.Button button19;
+        private System.Windows.Forms.Button button20;
+        private System.Windows.Forms.Button button21;
     }
 }
 

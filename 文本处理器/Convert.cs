@@ -670,10 +670,472 @@ namespace 文本处理器
         #endregion
 
         #region 集合操作
-        public static bool jiaoji(string File_A,string File_B,string Save_File)
+        /// <summary>
+        /// 交集
+        /// </summary>
+        /// <param name="File_A">文件A</param>
+        /// <param name="File_B">文件B</param>
+        /// <param name="Save_File">保存地址</param>
+        /// <returns></returns>
+        public static bool Intersection(string File_A,string File_B,string Save_File)
         {
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+            HashSet<string> hashdata = new HashSet<string>();
+
+            while (! file_A.EndOfStream)
+            {
+                hashdata.Add(file_A.ReadLine());
+            }
+            file_A.Close();
+
+            while (!file_B.EndOfStream)
+            {
+                string txt = file_B.ReadLine();
+                if (hashdata.Contains(txt)) save_file.WriteLine(txt);
+            }
+            hashdata.Clear();
+            file_B.Close();
+            save_file.Close();
             return true;
         }
+        /// <summary>
+        /// 交集
+        /// </summary>
+        /// <param name="File_A">文件A</param>
+        /// <param name="File_B">文件B</param>
+        /// <param name="Save_File">保存地址</param>
+        /// <returns></returns>
+        public static bool Intersection(string File_A, string File_B, string Save_File,string Split,int Col_Num)
+        {
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+            HashSet<string> hashdata = new HashSet<string>();
+
+            while (!file_A.EndOfStream)
+            {
+                string txt = file_A.ReadLine();
+                string col_val = _Get_Col_Val(txt, Col_Num, Split);
+                if (col_val != null) hashdata.Add(col_val);
+            }
+            file_A.Close();
+
+            while (!file_B.EndOfStream)
+            {
+                string txt = file_B.ReadLine();
+                string col_val = _Get_Col_Val(txt, Col_Num, Split);
+                if (col_val != null && hashdata.Contains(col_val)) save_file.WriteLine(txt);
+                
+            }
+            hashdata.Clear();
+            file_B.Close();
+            save_file.Close();
+            return true;
+        }
+
+        /// <summary>
+        /// 并集
+        /// </summary>
+        /// <param name="File_A"></param>
+        /// <param name="File_B"></param>
+        /// <param name="Save_File"></param>
+        /// <returns></returns>
+        public static bool Union(string File_A,string File_B,string Save_File)
+        {
+            //File.Copy(File_A, Save_File, true);
+
+            //byte[] arr = {0,0};
+            //FileStream fileStream = new FileStream(Save_File, FileMode.Open);
+            //fileStream.Seek(-2,SeekOrigin.End);
+            //fileStream.Read(arr, 0, 2);
+            //if (arr[0] != 13 || arr[1] != 10)
+            //{
+            //    arr[0] = 13;
+            //    arr[1] = 10;
+            //    fileStream.Write(arr, 0, 2);
+            //}
+            //fileStream.Close();
+
+            
+
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+
+            HashSet<string> hashdata = new HashSet<string>();
+            
+
+            while (!file_A.EndOfStream)
+            {
+                hashdata.Add(file_A.ReadLine());
+            }
+
+            file_A.Close();
+
+            foreach (string val in hashdata)
+            {
+                save_file.WriteLine(val);
+            }
+
+            while (!file_B.EndOfStream)
+            {
+                string txt = file_B.ReadLine();
+                if (!hashdata.Contains(txt))
+                {
+                    hashdata.Add(txt);
+                    save_file.WriteLine(txt);
+                }
+            }
+            hashdata.Clear();
+            file_B.Close();
+            save_file.Close();
+            return true;
+        }
+
+        /// <summary>
+        /// 并集
+        /// </summary>
+        /// <param name="File_A"></param>
+        /// <param name="File_B"></param>
+        /// <param name="Save_File"></param>
+        /// <returns></returns>
+        public static bool Union(string File_A, string File_B, string Save_File, string Split, int Col_Num)
+        {
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+
+            HashSet<string> hashdata = new HashSet<string>();
+
+
+            while (!file_A.EndOfStream)
+            {
+                string txt = file_A.ReadLine();
+                string col_val = _Get_Col_Val(txt, Col_Num, Split);
+                if (col_val != null && hashdata.Contains(col_val) == false)
+                {
+                    hashdata.Add(col_val);
+                    save_file.WriteLine(txt);
+                }
+            }
+            file_A.Close();
+
+
+            while (!file_B.EndOfStream)
+            {
+                string txt = file_B.ReadLine();
+                string col_val = _Get_Col_Val(txt, Col_Num, Split);
+                if (col_val != null && hashdata.Contains(col_val) == false)
+                {
+                    hashdata.Add(col_val);
+                    save_file.WriteLine(txt);
+                }
+            }
+            hashdata.Clear();
+            file_B.Close();
+            save_file.Close();
+            return true;
+        }
+
+        /// <summary>
+        /// 差集
+        /// </summary>
+        /// <param name="File_A"></param>
+        /// <param name="File_B"></param>
+        /// <param name="Save_File"></param>
+        /// <returns></returns>
+        public static bool Except(string File_A,string File_B,string Save_File)
+        {
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+
+            HashSet<string> hash_A = new HashSet<string>();
+            HashSet<string> hash_B = new HashSet<string>();
+
+
+            while (!file_A.EndOfStream)
+            {
+                hash_A.Add(file_A.ReadLine());
+            }
+            file_A.Close();
+
+            while (!file_B.EndOfStream)
+            {
+                hash_B.Add(file_B.ReadLine());
+            }
+            file_B.Close();
+
+            hash_A.ExceptWith(hash_B.AsEnumerable());
+
+            foreach (string val in hash_A)
+            {
+                save_file.WriteLine(val);
+            }
+            save_file.Close();
+            return true;
+        }
+
+        /// <summary>
+        /// 差集
+        /// </summary>
+        /// <param name="File_A"></param>
+        /// <param name="File_B"></param>
+        /// <param name="Save_File"></param>
+        /// <returns></returns>
+        public static bool Except(string File_A, string File_B, string Save_File, string Split, int Col_Num)
+        {
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+
+            HashSet<string> hash_B = new HashSet<string>();
+
+
+            while (!file_B.EndOfStream)
+            {
+                string text = file_B.ReadLine();
+                string col_val = _Get_Col_Val(text, Col_Num, Split);
+                if (col_val != null)
+                {
+                    hash_B.Add(col_val);
+                }
+                
+            }
+            file_B.Close();
+
+            while (!file_A.EndOfStream)
+            {
+                string text = file_A.ReadLine();
+                string col_val = _Get_Col_Val(text, Col_Num, Split);
+                if (col_val != null && hash_B.Contains(col_val) == false)
+                {
+                    hash_B.Add(col_val);
+                    save_file.WriteLine(text);
+                }
+            }
+            hash_B.Clear();
+            file_A.Close();
+            save_file.Close();
+            return true;
+        }
+        /// <summary>
+        /// 补集
+        /// </summary>
+        /// <param name="File_A"></param>
+        /// <param name="File_B"></param>
+        /// <param name="Save_File"></param>
+        /// <returns>返回存在于a但不存在于b的数据</returns>
+        public static bool Complementary(string File_A, string File_B, string Save_File)
+        {
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+
+            HashSet<string> hashdata = new HashSet<string>();
+
+            while (!file_B.EndOfStream)
+            {
+                hashdata.Add(file_B.ReadLine());
+            }
+            while (!file_A.EndOfStream)
+            {
+                string text = file_A.ReadLine();
+                if (!hashdata.Contains(text))
+                {
+                    save_file.WriteLine(text);
+                }
+            }
+            hashdata.Clear();
+            file_A.Close();
+            file_B.Close();
+            save_file.Close();
+            
+            return true;
+        }
+        /// <summary>
+        /// 补集
+        /// </summary>
+        /// <param name="File_A"></param>
+        /// <param name="File_B"></param>
+        /// <param name="Save_File"></param>
+        /// <returns>返回存在于a但不存在于b的数据</returns>
+        public static bool Complementary(string File_A, string File_B, string Save_File, string Split, int Col_Num)
+        {
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+
+            HashSet<string> hashdata = new HashSet<string>();
+
+            while (!file_B.EndOfStream)
+            {
+                string txt = file_B.ReadLine();
+                string col_val = _Get_Col_Val(txt, Col_Num, Split);
+                hashdata.Add(col_val);
+            }
+            while (!file_A.EndOfStream)
+            {
+                string txt = file_A.ReadLine();
+                string col_val = _Get_Col_Val(txt, Col_Num, Split);
+                if (!hashdata.Contains(col_val))
+                {
+                    hashdata.Add(col_val);
+                    save_file.WriteLine(txt);
+                }
+            }
+            hashdata.Clear();
+            file_A.Close();
+            file_B.Close();
+            save_file.Close();
+
+            return true;
+        }
+
+        /// <summary>
+        /// 对称差集
+        /// </summary>
+        /// <param name="File_A"></param>
+        /// <param name="File_B"></param>
+        /// <param name="Save_File"></param>
+        /// <returns></returns>
+        public static bool Sym_Except(string File_A, string File_B, string Save_File)
+        {
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+
+            HashSet<string> hash_A = new HashSet<string>();
+            HashSet<string> hash_B = new HashSet<string>();
+
+
+            while (!file_A.EndOfStream)
+            {
+                hash_A.Add(file_A.ReadLine());
+            }
+            file_A.Close();
+
+            while (!file_B.EndOfStream)
+            {
+                hash_B.Add(file_B.ReadLine());
+            }
+            file_B.Close();
+
+            
+            foreach(string val in hash_A.Except(hash_B.AsEnumerable()))
+            {
+                save_file.WriteLine(val);
+            }
+            foreach (string val in hash_B.Except(hash_A.AsEnumerable()))
+            {
+                save_file.WriteLine(val);
+            }
+
+            hash_A.Clear();
+            hash_B.Clear();
+            
+            save_file.Close();
+            return true;
+        }
+
+        /// <summary>
+        /// 对称差集
+        /// </summary>
+        /// <param name="File_A"></param>
+        /// <param name="File_B"></param>
+        /// <param name="Save_File"></param>
+        /// <returns></returns>
+        public static bool Sym_Except(string File_A, string File_B, string Save_File, string Split, int Col_Num)
+        {
+            StreamReader file_A = new StreamReader(File_A);
+            StreamReader file_B = new StreamReader(File_B);
+            StreamWriter save_file = new StreamWriter(Save_File, false, Encoding.UTF8, 1024 * 1024 * 10);
+
+            Dictionary<string, string> hash_a = new Dictionary<string, string>();
+            Dictionary<string, string> hash_b = new Dictionary<string, string>();
+
+
+            while (!file_A.EndOfStream)
+            {
+                string txt = file_A.ReadLine();
+                string col_val = _Get_Col_Val(txt, Col_Num, Split);
+                if (col_val != null && hash_a.ContainsKey(col_val)==false)
+                {
+                    hash_a.Add(col_val, txt);
+                }
+            }
+            file_A.Close();
+
+            while (!file_B.EndOfStream)
+            {
+                string txt = file_B.ReadLine();
+                string col_val = _Get_Col_Val(txt, Col_Num, Split);
+                if (col_val != null && hash_b.ContainsKey(col_val) == false)
+                {
+                    hash_b.Add(col_val, txt);
+                }
+            }
+            file_B.Close();
+
+            #region 计算对称差集
+            string[] keys = hash_a.Keys.ToArray();
+            foreach (string key in keys)
+            {
+                if (hash_b.ContainsKey(key))
+                {
+                    hash_a.Remove(key);
+                    hash_b.Remove(key);
+                }
+            }
+
+            keys = hash_b.Keys.ToArray();
+            foreach (string key in keys)
+            {
+                if (hash_a.ContainsKey(key))
+                {
+                    hash_a.Remove(key);
+                    hash_b.Remove(key);
+                }
+            }
+
+            #endregion
+
+            #region 写出文件
+            foreach (KeyValuePair<string, string> item in hash_a)
+            {
+                save_file.WriteLine(item.Value);
+            }
+
+            foreach (KeyValuePair<string, string> item in hash_b)
+            {
+                save_file.WriteLine(item.Value);
+            }
+            #endregion
+
+
+
+
+
+
+            //foreach (var val in hash_a.Except(hash_b.AsEnumerable()))
+            //{
+            //    save_file.WriteLine(val.Value);
+            //    Console.WriteLine(val.Value);
+            //}
+            //foreach (var val in hash_b.Except(hash_a.AsEnumerable()))
+            //{
+            //    save_file.WriteLine(val.Value);
+            //    Console.WriteLine(val.Value);
+            //}
+            hash_a.Clear();
+            hash_b.Clear();
+
+            save_file.Close();
+            return true;
+        }
+
         #endregion
     }
 }

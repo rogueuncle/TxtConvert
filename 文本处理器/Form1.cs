@@ -169,8 +169,128 @@ namespace 文本处理器
             set_form.init(Set_Form.Window_Type.集合_行);
             if (set_form.ShowDialog() == DialogResult.OK)
             {
-
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Intersection(Data.file_A, Data.file_B, Data.save_File);
             }
+            set_form.Dispose();
+            GC.Collect();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_行);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Union(Data.file_A, Data.file_B, Data.save_File);
+            }
+            set_form.Dispose();
+            GC.Collect();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_行);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Complementary(Data.file_A, Data.file_B, Data.save_File);
+            }
+            set_form.Dispose();
+            GC.Collect();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_行);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Except(Data.file_A, Data.file_B, Data.save_File);
+            }
+            set_form.Dispose();
+            GC.Collect();
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_行);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Sym_Except(Data.file_A, Data.file_B, Data.save_File);
+            }
+            set_form.Dispose();
+            GC.Collect();
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_列);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Intersection(Data.file_A, Data.file_B, Data.save_File,Data.split,Data.col_num);
+            }
+            set_form.Dispose();
+            GC.Collect();
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_列);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Union(Data.file_A, Data.file_B, Data.save_File, Data.split, Data.col_num);
+            }
+            set_form.Dispose();
+            GC.Collect();
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_列);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Complementary(Data.file_A, Data.file_B, Data.save_File, Data.split, Data.col_num);
+            }
+            set_form.Dispose();
+            GC.Collect();
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_列);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Except(Data.file_A, Data.file_B, Data.save_File, Data.split, Data.col_num);
+            }
+            set_form.Dispose();
+            GC.Collect();
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            Set_Form set_form = new Set_Form();
+            set_form.init(Set_Form.Window_Type.集合_列);
+            if (set_form.ShowDialog() == DialogResult.OK)
+            {
+                HashSet_Form Data = set_form.Get_Data();
+                ConvertText.Sym_Except(Data.file_A, Data.file_B, Data.save_File, Data.split, Data.col_num);
+            }
+            set_form.Dispose();
+            GC.Collect();
         }
     }
 
@@ -205,5 +325,14 @@ namespace 文本处理器
         /// 过滤长度
         /// </summary>
         public int Text_Len;
+    }
+
+    public struct HashSet_Form
+    {
+        public string file_A;
+        public string file_B;
+        public string save_File;
+        public string split;
+        public int col_num;
     }
 }

@@ -51,6 +51,33 @@
             ((System.ComponentModel.ISupportInitialize)(this.col_Num_Numer)).BeginInit();
             this.SuspendLayout();
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(10, 87);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(53, 12);
+            label2.TabIndex = 13;
+            label2.Text = "保存地址";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(28, 12);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(35, 12);
+            label1.TabIndex = 12;
+            label1.Text = "文件A";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(28, 49);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(35, 12);
+            label3.TabIndex = 24;
+            label3.Text = "文件B";
+            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(303, 42);
@@ -111,7 +138,6 @@
             0,
             0,
             -2147483648});
-            this.col_Num_Numer.Visible = false;
             // 
             // split_Text_TB
             // 
@@ -121,7 +147,6 @@
             this.split_Text_TB.TabIndex = 18;
             this.split_Text_TB.Text = "----";
             this.split_Text_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.split_Text_TB.Visible = false;
             // 
             // save_File_TB
             // 
@@ -147,7 +172,6 @@
             this.col_Num_Lab.Size = new System.Drawing.Size(53, 12);
             this.col_Num_Lab.TabIndex = 15;
             this.col_Num_Lab.Text = "选择列数";
-            this.col_Num_Lab.Visible = false;
             // 
             // split_Text_Lab
             // 
@@ -157,25 +181,6 @@
             this.split_Text_Lab.Size = new System.Drawing.Size(41, 12);
             this.split_Text_Lab.TabIndex = 14;
             this.split_Text_Lab.Text = "分隔符";
-            this.split_Text_Lab.Visible = false;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(10, 87);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(53, 12);
-            label2.TabIndex = 13;
-            label2.Text = "保存地址";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(28, 12);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(35, 12);
-            label1.TabIndex = 12;
-            label1.Text = "文件A";
             // 
             // button5
             // 
@@ -196,15 +201,6 @@
             this.input_File_TB_B.ReadOnly = true;
             this.input_File_TB_B.Size = new System.Drawing.Size(197, 21);
             this.input_File_TB_B.TabIndex = 25;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(28, 49);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(35, 12);
-            label3.TabIndex = 24;
-            label3.Text = "文件B";
             // 
             // openFileDialog1
             // 

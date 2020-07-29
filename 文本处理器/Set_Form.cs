@@ -41,6 +41,19 @@ namespace 文本处理器
             return true;
         }
 
+        public HashSet_Form Get_Data()
+        {
+            HashSet_Form Data = new HashSet_Form()
+            {
+                file_A = input_File_TB_A.Text,
+                file_B = input_File_TB_B.Text,
+                save_File = save_File_TB.Text,
+                split = split_Text_TB.Text,
+                col_num = (int)col_Num_Numer.Value,
+            };
+            return Data;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             openFileDialog1.FileName = "";
